@@ -1,36 +1,36 @@
 package org.it21902;
 
+import java.util.ArrayList;
+
 public class City {
 	
-	private int[] termsVector;
-	private double[] geodesicVector;
+	private ArrayList<Integer> termsVector;
+	private ArrayList<Double> geodesicVector;
+	private String name;
 	
 	public City() {
-		this.termsVector = new int[10];
-		this.geodesicVector = new double[2];
+		this.termsVector = new ArrayList();
+		this.geodesicVector = new ArrayList();
+		this.name = "";
 	}
 
+
 	/*Getters & Setters*/
-	/**
-	 * @return int[]
-	 */
-	public int[] getTermsVector() {
+	public ArrayList<Integer> getTermsVector() {
 		return termsVector;
 	}
 
-	public void setTermsVector(int[] termsVector) {
+	public void setTermsVector(ArrayList<Integer> termsVector) {
 		this.termsVector = termsVector;
 	}
 
-	/**
-	 * @return double[]
-	 */
-	public double[] getGeodesicVector() {
+	public ArrayList<Double> getGeodesicVector() {
 		return geodesicVector;
 	}
 
-	public void setGeodesicVector(double[] geodesicVector) {
+	public void setGeodesicVector(ArrayList<Double> geodesicVector) {
 		this.geodesicVector = geodesicVector;
 	}
+
 	
 }
