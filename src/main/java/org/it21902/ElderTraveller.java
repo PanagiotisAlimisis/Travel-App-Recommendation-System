@@ -17,7 +17,7 @@ public class ElderTraveller extends Traveller{
  	 * based on Jaccard distance.
  	 * @return The similarity between the city and the traveler.
 	 */
-	private double similarityTermsVector(City c) {
+	public double similarityTermsVector(City c) {
 		/*Find the section of the two vectors.*/
 		int intersection = 0;
 		for (int i=0; i<this.getTermsVector().size(); ++i) {
@@ -42,6 +42,6 @@ public class ElderTraveller extends Traveller{
 		}
 		int union = m.size();
 		
-		return intersection / union;
+		return union != 0? intersection / union: 0;
 	}
 }

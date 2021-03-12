@@ -14,7 +14,7 @@ public class MiddleTraveller extends Traveller{
  	 * based on Cosine similarity .
  	 * @return The similarity between the city and the traveler.
 	 */
-	private double similarityTermsVector(City c) {
+	public double similarityTermsVector(City c) {
 		/*Multiply the two vectors in order to find the numerator.*/
 		double numerator = 0;
 		for (int i=0; i<this.getTermsVector().size(); ++i) {
