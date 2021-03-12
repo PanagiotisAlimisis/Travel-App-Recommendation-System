@@ -7,12 +7,9 @@ public class YoungTraveller extends Traveller{
 	public double calculateSimilarity(City c) {
 		double p = 0.5; /*p must be in [0, 1]. See how it gets its value.????????!!!!!*/  
 		
-		return p * similarityTermsVector(c) + (1-p) * similarityGeodesicVector();
+		return p * similarityTermsVector(c) + (1-p) * similarityGeodesicVector(c);
 	}
 	
-	private double similarityGeodesicVector() {
-		return 0;		
-	}
 	
 	/**
 	 * Similarity between the young traveller and the city

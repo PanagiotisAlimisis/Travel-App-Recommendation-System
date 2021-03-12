@@ -9,12 +9,7 @@ public class ElderTraveller extends Traveller{
 	public double calculateSimilarity(City c) {
 		double p = 0.5; /*p must be in [0, 1]. Find out how it gets its value.????????!!!!!*/  
 	
-		return p * similarityTermsVector(c) + (1-p) * similarityGeodesicVector();
-	}
-
-
-	private double similarityGeodesicVector() {
-		return 0;		
+		return p * similarityTermsVector(c) + (1-p) * similarityGeodesicVector(c);
 	}
 	
 	/**

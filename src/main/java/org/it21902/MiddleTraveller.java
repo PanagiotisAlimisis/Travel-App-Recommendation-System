@@ -6,14 +6,9 @@ public class MiddleTraveller extends Traveller{
 	public double calculateSimilarity(City c) {
 		double p = 0.5; /*p must be in [0, 1]. See how it gets its value.????????!!!!!*/  
 	
-		return p * similarityTermsVector(c) + (1-p) * similarityGeodesicVector();
+		return p * similarityTermsVector(c) + (1-p) * similarityGeodesicVector(c);
 	}
 
-
-	private double similarityGeodesicVector() {
-		return 0;		
-	}
-	
 	/**
 	 * Similarity between the young traveller and the city
  	 * based on Cosine similarity .
@@ -29,17 +24,18 @@ public class MiddleTraveller extends Traveller{
 		/*Find the length of each vector for the denominator.*/
 		double user = 0;
 		for (int i=0; i<this.getTermsVector().size(); ++i) {
-			user += this.getTermsVector().get(i);
+			user += this.getTermsVector().get(i)^2;
 		}
 		user = Math.sqrt(user);
 		
 		double city = 0;
 		for (int i=0; i<c.getTermsVector().size(); ++i) {
-			city += c.getTermsVector().get(i);
+			city += c.getTermsVector().get(i)^2;
 		}
 		city = Math.sqrt(city);
 		
-		return (numerator / (user * city));
+		
+		return user*city != 0 ? (numerator / (user * city)): 0;
 	}	
 	
 }
