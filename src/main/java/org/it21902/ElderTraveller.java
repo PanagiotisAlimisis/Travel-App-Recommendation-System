@@ -1,13 +1,11 @@
 package org.it21902;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class ElderTraveller extends Traveller{
 
 	@Override
 	public double calculateSimilarity(City c) {
-		double p = 0.5; /*p must be in [0, 1]. Find out how it gets its value.????????!!!!!*/  
+		double p = 0.2; 
 	
 		return p * similarityTermsVector(c) + (1-p) * similarityGeodesicVector(c);
 	}
@@ -17,31 +15,15 @@ public class ElderTraveller extends Traveller{
  	 * based on Jaccard distance.
  	 * @return The similarity between the city and the traveler.
 	 */
-	public double similarityTermsVector(City c) {
+	private double similarityTermsVector(City c) {
 		/*Find the section of the two vectors.*/
 		int intersection = 0;
-		for (int i=0; i<this.getTermsVector().size(); ++i) {
-			if (this.getTermsVector().get(i) == 0)
-				continue;
-			if (c.getTermsVector().contains(this.getTermsVector().get(i))) {
+		for (int i=0; i<super.getTermsVector().size(); ++i) {
+			if (super.getTermsVector().get(i) > 0 && c.getTermsVector().get(i) > 0) {
 				++intersection;
 			}
 		}
 		
-		/*Find the union of the two vectors.*/
-		Map<Integer, Integer> m = new HashMap();
-		for (int i=0; i<this.getTermsVector().size(); ++i) {
-			if (this.getTermsVector().get(i) == 0)
-				continue;
-			m.put(this.getTermsVector().get(i), i);
-		}
-		for (int i=0; i<c.getTermsVector().size(); ++i) {
-			if (c.getTermsVector().get(i) == 0)
-				continue;
-			m.put(c.getTermsVector().get(i), i);
-		}
-		int union = m.size();
-		
-		return union != 0? intersection / union: 0;
+		return intersection/10.0;
 	}
 }

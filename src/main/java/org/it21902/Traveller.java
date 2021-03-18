@@ -5,19 +5,36 @@ import java.util.ArrayList;
 public abstract class Traveller {
 	
 	/*Largest distance between two cities on Earth that a trip can be achieved.*/
-	private static final int MAX_DISTANCE = 20000;
+	private static final int MAX_DISTANCE = 15000;
 	
+	/**
+	 * 0: museum
+	 * 1: sea
+	 * 2: mountain
+	 * 3: cafe
+	 * 4: restaurant
+	 * 5: bar
+	 * 6: stadium
+	 * 7: park
+	 * 8: statue
+	 * 9: square
+	 */
 	private ArrayList<Integer> termsVector;
+	/**
+	 * 0: lat
+	 * 1: lon
+	 */
 	private ArrayList<Double> geodesicVector;
 	
-	
-	private ArrayList<Traveller> allTravelers;/*Check this out a little bit.*/
+	private static ArrayList<Traveller> allTravellers = new ArrayList<Traveller>();/*Check this out a little bit.*/
 	
 	private int age;
 	
+	
 	public Traveller() {
-		this.termsVector = new ArrayList();
-		this.geodesicVector = new ArrayList();
+		this.termsVector = new ArrayList<Integer>();
+		this.geodesicVector = new ArrayList<Double>();
+		allTravellers.add(this);
 	}
 
 	/**
@@ -32,11 +49,11 @@ public abstract class Traveller {
 	 * @return
 	 */
 	public City compareCities(ArrayList<City> cities) {
-		double max = -100;
+		double max = 100;
 		int bestCity = -1;
 		for (int i = 0; i<cities.size(); ++i) {
 			double sim = this.calculateSimilarity(cities.get(i));
-			if (sim > max) {
+			if (sim < max) {
 				max = sim;
 				bestCity = i;
 			}
@@ -60,8 +77,8 @@ public abstract class Traveller {
 		int worstPos = -1;
 		double minSimilarity = -100; /*The worst similarity of the n best similarities.*/
 		
-		ArrayList<City> bestCities = new ArrayList();
-		ArrayList<Double> bestSimilarities = new ArrayList();
+		ArrayList<City> bestCities = new ArrayList<City>();
+		ArrayList<Double> bestSimilarities = new ArrayList<Double>();
 
 		/*Fill with n cites the bestCities verctor and find the minSimilarity among them.*/
 		for (int i=0; i<n; ++i) {
@@ -79,16 +96,16 @@ public abstract class Traveller {
 		for (int i=n; i<cities.size(); ++i) {
 			double sim = this.calculateSimilarity(cities.get(i));
 			
-			if (sim > minSimilarity) {
+			if (sim < minSimilarity) {
 				bestCities.remove(worstPos);
 				bestSimilarities.remove(worstPos);
 				bestCities.add(cities.get(i));
 				bestSimilarities.add(sim);
 		
 				/*Finds the worst similarity of the best cities*/
-				minSimilarity = 100;
+				minSimilarity = -100;
 				for (int j=0; j<bestSimilarities.size(); ++j) {
-					if (bestSimilarities.get(j) < minSimilarity) {
+					if (bestSimilarities.get(j) > minSimilarity) {
 						minSimilarity = bestSimilarities.get(j);
 						worstPos = j;
 					}
@@ -125,6 +142,10 @@ public abstract class Traveller {
 		this.age = age;
 	}
 
+	/*##############################*/
+	
+	
+	
 	protected double similarityGeodesicVector(City c) {
 		return log2(2 / (2 - calculateDistance(c) / MAX_DISTANCE));
 	}
@@ -157,7 +178,7 @@ public abstract class Traveller {
 		}
 		
 		double theta = lonT - lonC;
-		double dist = Math.sin(Math.toRadians(latT)) * Math.sin(Math.toRadians(latC)) + Math.cos(Math.toRadians(latT)) * Math.cos(Math.toRadians(latC)) * Math.cos(theta);
+		double dist = Math.sin(Math.toRadians(latT)) * Math.sin(Math.toRadians(latC)) + Math.cos(Math.toRadians(latT)) * Math.cos(Math.toRadians(latC)) * Math.cos(Math.toRadians(theta));
 		dist = Math.acos(dist);
 		dist = Math.toDegrees(dist);
 		dist = dist * 60 * 1.1515;

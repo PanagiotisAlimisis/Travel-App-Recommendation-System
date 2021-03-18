@@ -38,7 +38,7 @@ public class Coord {
 	}
 	
 	@JsonProperty("lon")
-	public void setLon() {
+	public void setLon(Double lon) {
 		this.lon = lon;
 	}
 	
@@ -48,7 +48,7 @@ public class Coord {
 	}
 	
 	@JsonProperty("lat")
-	public void setLat() {
+	public void setLat(Double lat) {
 		this.lat = lat;
 	}
 	

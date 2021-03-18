@@ -5,7 +5,7 @@ public class YoungTraveller extends Traveller{
 	
 	@Override
 	public double calculateSimilarity(City c) {
-		double p = 0.5; /*p must be in [0, 1]. See how it gets its value.????????!!!!!*/  
+		double p = 0.8; 
 		
 		return p * similarityTermsVector(c) + (1-p) * similarityGeodesicVector(c);
 	}
@@ -16,12 +16,13 @@ public class YoungTraveller extends Traveller{
  	 * based on Euclidean distance.
  	 * @return The similarity between the city and the traveler.
 	 */
-	public double similarityTermsVector(City c) {
-		double sum = 1;
-		
-		for (int i=0; i<this.getTermsVector().size(); i++) {
-			sum += (this.getTermsVector().get(i) - c.getTermsVector().get(i)) ^ 2;
+	private double similarityTermsVector(City c) {
+		double sum = 0; 
+		for (int i=0; i<super.getTermsVector().size(); i++) {
+			sum += Math.pow(super.getTermsVector().get(i) - c.getTermsVector().get(i), 2);
 		}
+
+		sum = Math.sqrt(sum) + 1; /*denominator*/
 		
 		return 1 / sum;
 	}

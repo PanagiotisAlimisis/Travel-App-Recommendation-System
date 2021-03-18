@@ -257,7 +257,6 @@ public class OpenWeatherMap {
 		return additionalProperties;
 	}
 
-
 	@JsonAnySetter
 	public void setAdditionalProperties(Map<String, Object> additionalProperties) {
 		this.additionalProperties = additionalProperties;
