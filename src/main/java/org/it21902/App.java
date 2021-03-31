@@ -8,6 +8,9 @@ import java.util.ArrayList;
 public class App {
 
 	public static void main(String[] args) {
+		/*Hardcoded data are used for the first part of the assignment. Not meaningful variable names are used in this class,  
+		 * because none of them will exist in the final assignment and everything will be replaced from real user input.*/
+		
 		/*10 cities*/
         ArrayList<Double> a = new ArrayList();
         ArrayList<Double> b = new ArrayList();
@@ -20,7 +23,7 @@ public class App {
         ArrayList<Double> i = new ArrayList();
         ArrayList<Double> j = new ArrayList();
         ArrayList<Double> k = new ArrayList();
-
+        
         City c1 = new City();
         City c2 = new City();
         City c3 = new City();
@@ -34,73 +37,77 @@ public class App {
 
         c1.setName("Athens");
         try {
-        	c1.retrieveData("Athens", "gr", "8268b79c6118c5f5c576506e09e1318d");
+        	c1.retrieveDataFromWikipedia("Athens", "gr", "8268b79c6118c5f5c576506e09e1318d");
+        	c1.retrieveDataFromOpenWeatherMap("Athens", "gr", "8268b79c6118c5f5c576506e09e1318d");
         } catch (IOException ex) {
         	ex.printStackTrace();
         }
     	c2.setName("Thessaloniki");
         try {
-			c2.retrieveData("Thessaloniki", "gr", "8268b79c6118c5f5c576506e09e1318d");
+			c2.retrieveDataFromWikipedia("Thessaloniki", "gr", "8268b79c6118c5f5c576506e09e1318d");
+			c2.retrieveDataFromOpenWeatherMap("Thessaloniki", "gr", "8268b79c6118c5f5c576506e09e1318d");
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
         c3.setName("London");
         try {
-			c3.retrieveData("London", "gb", "8268b79c6118c5f5c576506e09e1318d");
+			c3.retrieveDataFromWikipedia("London", "gb", "8268b79c6118c5f5c576506e09e1318d");
+			c3.retrieveDataFromOpenWeatherMap("London", "gb", "8268b79c6118c5f5c576506e09e1318d");
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
         c4.setName("Rome");
         try {
-			c4.retrieveData("Rome", "it", "8268b79c6118c5f5c576506e09e1318d");
+			c4.retrieveDataFromWikipedia("Rome", "it", "8268b79c6118c5f5c576506e09e1318d");
+			c4.retrieveDataFromOpenWeatherMap("Rome", "it", "8268b79c6118c5f5c576506e09e1318d");
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
         c5.setName("Tokyo");
         try {
-			c5.retrieveData("Tokyo", "jp", "8268b79c6118c5f5c576506e09e1318d");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+			c5.retrieveDataFromWikipedia("Tokyo", "jp", "8268b79c6118c5f5c576506e09e1318d");
+			c5.retrieveDataFromOpenWeatherMap("Tokyo", "jp", "8268b79c6118c5f5c576506e09e1318d");
+        } catch (IOException e1) {
 			e1.printStackTrace();
 		}
         c6.setName("New York");
         try {
-			c6.retrieveData("New+York", "us", "8268b79c6118c5f5c576506e09e1318d");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+			c6.retrieveDataFromWikipedia("New+York", "us", "8268b79c6118c5f5c576506e09e1318d");
+			c6.retrieveDataFromOpenWeatherMap("New+York", "us", "8268b79c6118c5f5c576506e09e1318d");
+        } catch (IOException e1) {
 			e1.printStackTrace();
 		}
         c7.setName("Kyiv");
         try {
-			c7.retrieveData("Kyiv", "ua", "8268b79c6118c5f5c576506e09e1318d");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+			c7.retrieveDataFromWikipedia("Kyiv", "ua", "8268b79c6118c5f5c576506e09e1318d");
+			c7.retrieveDataFromOpenWeatherMap("Kyiv", "ua", "8268b79c6118c5f5c576506e09e1318d");
+        } catch (IOException e1) {
 			e1.printStackTrace();
 		}
         c8.setName("Paris");
         try {
-			c8.retrieveData("Paris", "fr", "8268b79c6118c5f5c576506e09e1318d");
+			c8.retrieveDataFromWikipedia("Paris", "fr", "8268b79c6118c5f5c576506e09e1318d");
+			c8.retrieveDataFromOpenWeatherMap("Paris", "fr", "8268b79c6118c5f5c576506e09e1318d");
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
         c9.setName("Vienna");
         try {
-			c9.retrieveData("Vienna", "at", "8268b79c6118c5f5c576506e09e1318d");
+			c9.retrieveDataFromWikipedia("Vienna", "at", "8268b79c6118c5f5c576506e09e1318d");
+			c9.retrieveDataFromOpenWeatherMap("Vienna", "at", "8268b79c6118c5f5c576506e09e1318d");
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
         c10.setName("Berlin");
         try {
-			c10.retrieveData("Berlin", "de", "8268b79c6118c5f5c576506e09e1318d");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+			c10.retrieveDataFromWikipedia("Berlin", "de", "8268b79c6118c5f5c576506e09e1318d");
+			c10.retrieveDataFromOpenWeatherMap("Berlin", "de", "8268b79c6118c5f5c576506e09e1318d");
+        } catch (IOException e1) {
 			e1.printStackTrace();
 		}
+        
+        
+        /*Add all the cities in an arraylist in order to print their terms vectors.*/
         
         ArrayList<City> cities = new ArrayList<City>();
         cities.add(c1);
@@ -122,6 +129,7 @@ public class App {
         	}
         	System.out.println("]");
         }
+        System.out.println();
         
         
         /*4 travellers*/
@@ -147,8 +155,10 @@ public class App {
         t1T.add(9);
         t1T.add(10);
         t1.setTermsVector(t1T);
+        System.out.print("The best city for the traveller who is located in Berlin is: ");
         System.out.println(t1.compareCities(cities).getName());
-	       
+        System.out.println();
+        
         /*t2 is located in Rome. Find the 5 best cities for him.*/
         ArrayList<Double> t2G = new ArrayList();
         ArrayList<Integer> t2T = new ArrayList();
@@ -168,12 +178,11 @@ public class App {
         t2.setTermsVector(t2T);
         ArrayList<City> re = new ArrayList<City>();
         re = t2.compareCities(cities,5);
-        System.out.println("#######");
-        System.out.println("Best cities for traveller: ");
+        System.out.println("Best cities for traveller who is located in Rome: ");
         for (City ci: re) {
-        	System.out.println(ci.getName());
+        	System.out.println("    "+ci.getName());
         }
-        System.out.println("#######");
+        System.out.println();
         
         /*t3 is located in New York. Find the best city for him.*/
         ArrayList<Double> t3G = new ArrayList();
@@ -192,7 +201,9 @@ public class App {
         t3T.add(1);
         t3T.add(2);
         t3.setTermsVector(t3T);
+        System.out.print("The best city for the traveller who is located in New York is: ");
         System.out.println(t3.compareCities(cities).getName());
+        System.out.println();
         
         /*t4 is located in Athens. Find the 5 best cities for him.*/
         ArrayList<Double> t4G = new ArrayList();
@@ -213,23 +224,10 @@ public class App {
         t4.setTermsVector(t4T);
         ArrayList<City> ret = new ArrayList<City>();
         ret = t4.compareCities(cities,5);
-        System.out.println("#######");
-        System.out.println("Best cities for traveller: ");
-        
-        System.out.println("#######");
-        
-	    
-//        ci.setGeodesicVector(a);
-//        t.setGeodesicVector(b);
-        
-//        System.out.println(t.similarityTermsVector(ci));
-        
-//        try {
-//			City.RetrieveData("Athens", "gr", "8268b79c6118c5f5c576506e09e1318d");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-        
+        System.out.println("Best cities for traveller who is located in Athens: ");
+        for (City ci: re) {
+        	System.out.println("    "+ci.getName());
+        }
+        System.out.println();
 	}
 }

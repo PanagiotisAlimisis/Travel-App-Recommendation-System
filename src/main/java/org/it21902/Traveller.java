@@ -26,7 +26,7 @@ public abstract class Traveller {
 	 */
 	private ArrayList<Double> geodesicVector;
 	
-	private static ArrayList<Traveller> allTravellers = new ArrayList<Traveller>();/*Check this out a little bit.*/
+	private static ArrayList<Traveller> allTravellersList = new ArrayList<Traveller>();/*Check this out a little bit.*/
 	
 	private int age;
 	
@@ -34,7 +34,7 @@ public abstract class Traveller {
 	public Traveller() {
 		this.termsVector = new ArrayList<Integer>();
 		this.geodesicVector = new ArrayList<Double>();
-		allTravellers.add(this);
+		allTravellersList.add(this);
 	}
 
 	/**
@@ -169,16 +169,16 @@ public abstract class Traveller {
 	 * @return
 	 */
 	private double calculateDistance(City c) {
-		double latT = this.getGeodesicVector().get(0), latC = c.getGeodesicVector().get(0);
-		double lonT = this.getGeodesicVector().get(1), lonC = c.getGeodesicVector().get(1);
+		double latTraveller = this.getGeodesicVector().get(0), latCity = c.getGeodesicVector().get(0);
+		double lonTraveller = this.getGeodesicVector().get(1), lonCity = c.getGeodesicVector().get(1);
 		
 		/*Traveller is located in the same city that they want to travel.*/
-		if ((latT == latC) && (lonT == lonC)) {
+		if ((latTraveller == latCity) && (lonTraveller == lonCity)) {
 			return 0;
 		}
 		
-		double theta = lonT - lonC;
-		double dist = Math.sin(Math.toRadians(latT)) * Math.sin(Math.toRadians(latC)) + Math.cos(Math.toRadians(latT)) * Math.cos(Math.toRadians(latC)) * Math.cos(Math.toRadians(theta));
+		double theta = lonTraveller - lonCity;
+		double dist = Math.sin(Math.toRadians(latTraveller)) * Math.sin(Math.toRadians(latCity)) + Math.cos(Math.toRadians(latTraveller)) * Math.cos(Math.toRadians(latCity)) * Math.cos(Math.toRadians(theta));
 		dist = Math.acos(dist);
 		dist = Math.toDegrees(dist);
 		dist = dist * 60 * 1.1515;

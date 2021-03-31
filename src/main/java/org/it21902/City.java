@@ -2,6 +2,8 @@ package org.it21902;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -37,10 +39,6 @@ public class City {
 		this.geodesicVector = new ArrayList<Double>();
 		this.name = "";
 	}
-
-//	public boolean equals(City c) {
-//		return c.getName() == this.name;
-//	}
 	
 	/*Getters & Setters*/
 	public ArrayList<Integer> getTermsVector() {
@@ -73,30 +71,39 @@ public class City {
 		this.name = name;
 	}
 
-	/**Retrieves weather information, geotag (lan, lon) and a Wikipedia article for a given city.
-	* @param city The Wikipedia article and OpenWeatherMap city. 
-	* @param country The country initials (i.e. gr, it, de).
-	* @param appid Your API key of the OpenWeatherMap.*/ 
-	 public void retrieveData(String city, String country, String appid) throws  IOException {
+	 public void retrieveDataFromWikipedia(String city, String country, String appid) throws IOException{
 		 ObjectMapper mapper = new ObjectMapper(); 
 		 mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		 OpenWeatherMap weather_obj = mapper.readValue(new URL("http://api.openweathermap.org/data/2.5/weather?q="+city+","+country+"&APPID="+appid+""), OpenWeatherMap.class);
-//		 System.out.println(city+" temperature: " + (weather_obj.getMain()).getTemp());
-//		 System.out.println(city+" lat: " + weather_obj.getCoord().getLat()+" lon: " + weather_obj.getCoord().getLon());
 		 
-		 /*Set geodesic vector of this city*/
-		 ArrayList<Double> temp = new ArrayList<Double>();
-		 temp.add(weather_obj.getCoord().getLat());
-		 temp.add(weather_obj.getCoord().getLon());
-		 this.setGeodesicVector(temp);
-		 
-		 MediaWiki mediaWiki_obj =  mapper.readValue(new URL("https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles="+city+"&format=json&formatversion=2"),MediaWiki.class);
-//		 System.out.println(city+" Wikipedia article: "+mediaWiki_obj.getQuery().getPages().get(0).getExtract());
-		 this.setTermsFromWiki(mediaWiki_obj.getQuery().getPages().get(0).getExtract());
-	}
-
+		 try {
+			 MediaWiki mediaWiki_obj =  mapper.readValue(new URL("https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles="+city+"&format=json&formatversion=2"),MediaWiki.class);
+			 this.setTermsFromWikipedia(mediaWiki_obj.getQuery().getPages().get(0).getExtract());	 
+		 } catch (FileNotFoundException exception) {
+			 System.out.println("There is no such city: "+ city);
+		 }
+	 }
 	 
-	 private void setTermsFromWiki(String text) {
+	 public void retrieveDataFromOpenWeatherMap(String city, String country, String appid)  throws IOException{
+		 ObjectMapper mapper = new ObjectMapper(); 
+		 mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		 
+		 try {
+			 OpenWeatherMap weather_obj = mapper.readValue(new URL("http://api.openweathermap.org/data/2.5/weather?q="+city+","+country+"&APPID="+appid+""), OpenWeatherMap.class);
+			 this.setTermsFromOpenWeatherMap(weather_obj.getCoord().getLat(), weather_obj.getCoord().getLon());
+		 } catch (FileNotFoundException exception) {
+			 System.out.println("There is no such city: "+ city);
+		 }
+	}
+	 
+	 private void setTermsFromOpenWeatherMap(Double lat, Double lon) {
+		 ArrayList<Double> temp = new ArrayList<Double>();
+		 temp.add(lat);
+		 temp.add(lon);
+		 this.setGeodesicVector(temp);		 	 
+	 }
+	 
+	 
+	 private void setTermsFromWikipedia(String text) {
 		 String s[] = text.split(" ");
 		 
 		 Map<String, Integer> map = new HashMap<String, Integer>();
