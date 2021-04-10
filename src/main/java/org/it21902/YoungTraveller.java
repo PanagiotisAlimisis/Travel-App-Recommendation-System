@@ -5,8 +5,7 @@ public class YoungTraveller extends Traveller{
 	
 	@Override
 	public double calculateSimilarity(City c) {
-		double p = 0.8; 
-		
+		double p = 0.97; 
 		return p * similarityTermsVector(c) + (1-p) * similarityGeodesicVector(c);
 	}
 	
@@ -28,3 +27,4 @@ public class YoungTraveller extends Traveller{
 	}
 
 }
+

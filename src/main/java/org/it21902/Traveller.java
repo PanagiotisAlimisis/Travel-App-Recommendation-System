@@ -1,11 +1,14 @@
 package org.it21902;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Traveller {
 	
 	/*Largest distance between two cities on Earth that a trip can be achieved.*/
-	private static final int MAX_DISTANCE = 15000;
+	private static final int MAX_DISTANCE = 18000;
 	
 	/**
 	 * 0: museum
@@ -25,9 +28,7 @@ public abstract class Traveller {
 	 * 1: lon
 	 */
 	private ArrayList<Double> geodesicVector;
-	
-	private static ArrayList<Traveller> allTravellersList = new ArrayList<Traveller>();/*Check this out a little bit.*/
-	
+	private static ArrayList<Traveller> allTravellersList = new ArrayList<Traveller>();
 	private int age;
 	
 	
@@ -49,12 +50,12 @@ public abstract class Traveller {
 	 * @return
 	 */
 	public City compareCities(ArrayList<City> cities) {
-		double max = 100;
+		double max = Integer.MIN_VALUE;
 		int bestCity = -1;
 		for (int i = 0; i<cities.size(); ++i) {
-			double sim = this.calculateSimilarity(cities.get(i));
-			if (sim < max) {
-				max = sim;
+			double similarity = this.calculateSimilarity(cities.get(i));
+			if (similarity > max && !(cities.get(i).getGeodesicVector().get(0) == this.getGeodesicVector().get(0) && cities.get(i).getGeodesicVector().get(1) == this.getGeodesicVector().get(1))) {
+				max = similarity;
 				bestCity = i;
 			}
 		}
@@ -74,43 +75,23 @@ public abstract class Traveller {
 			return null;
 		}
 		
-		int worstPos = -1;
-		double minSimilarity = -100; /*The worst similarity of the n best similarities.*/
+		Map<City, Double> citiesWithSimilarities = new HashMap();
 		
-		ArrayList<City> bestCities = new ArrayList<City>();
-		ArrayList<Double> bestSimilarities = new ArrayList<Double>();
-
-		/*Fill with n cites the bestCities verctor and find the minSimilarity among them.*/
-		for (int i=0; i<n; ++i) {
-			double sim = this.calculateSimilarity(cities.get(i));
-			
-			if (sim > minSimilarity) {
-				minSimilarity = sim;
-				worstPos = i;
-			}			
-			bestCities.add(cities.get(i));
-			bestSimilarities.add(sim);
+		for (City city: cities) {
+			citiesWithSimilarities.put(city, this.calculateSimilarity(city));
 		}
 		
-		/*Check the remaining cities and find the best n.*/
-		for (int i=n; i<cities.size(); ++i) {
-			double sim = this.calculateSimilarity(cities.get(i));
-			
-			if (sim < minSimilarity) {
-				bestCities.remove(worstPos);
-				bestSimilarities.remove(worstPos);
-				bestCities.add(cities.get(i));
-				bestSimilarities.add(sim);
 		
-				/*Finds the worst similarity of the best cities*/
-				minSimilarity = -100;
-				for (int j=0; j<bestSimilarities.size(); ++j) {
-					if (bestSimilarities.get(j) > minSimilarity) {
-						minSimilarity = bestSimilarities.get(j);
-						worstPos = j;
-					}
-				}
+		ArrayList<City> bestCities = new ArrayList();
+		for (int i=0; i<n; ++i) {
+			City c = Collections.max(citiesWithSimilarities.entrySet(), Map.Entry.comparingByValue()).getKey();
+			citiesWithSimilarities.remove(c);
+			/*Check if one of the best cities is the same as the one that the traveller is located and reject it from the best cities.*/
+			if (c.getGeodesicVector().get(0) == this.getGeodesicVector().get(0) && c.getGeodesicVector().get(1) == this.getGeodesicVector().get(1)) {
+				--i;
+				continue;
 			}
+			bestCities.add(c);
 		}
 		
 		return bestCities;
@@ -141,9 +122,6 @@ public abstract class Traveller {
 	public void setAge(int age) {
 		this.age = age;
 	}
-
-	/*##############################*/
-	
 	
 	
 	protected double similarityGeodesicVector(City c) {
@@ -152,13 +130,11 @@ public abstract class Traveller {
 	
 	/**
 	 * Calculates log with base 2.
-	 * @pa)ram N
+	 * @param N
 	 * @return
 	 */
 	private static double log2(double N) 
     { 
-        // calculate log2 N indirectly 
-        // using log() method 
         return (Math.log(N) / Math.log(2)); 
     } 
 

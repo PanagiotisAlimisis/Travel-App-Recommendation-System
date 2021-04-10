@@ -4,7 +4,7 @@ public class MiddleTraveller extends Traveller{
 
 	@Override
 	public double calculateSimilarity(City c) {
-		double p = 0.5; 
+		double p = 0.6; 
 	
 		return p * similarityTermsVector(c) + (1-p) * similarityGeodesicVector(c);
 	}
@@ -15,7 +15,6 @@ public class MiddleTraveller extends Traveller{
  	 * @return The similarity between the city and the traveler.
 	 */
 	private double similarityTermsVector(City c) {
-		/*Multiply the two vectors in order to find the numerator.*/
 		double numerator = 0;
 		double user = 0;
 		double city = 0;
