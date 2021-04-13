@@ -18,6 +18,7 @@ import java.util.Map;
     "main",
     "visibility",
     "wind",
+    "rain",
     "clouds",
     "dt",
     "sys",
@@ -39,6 +40,8 @@ public class OpenWeatherMap {
     private Integer visibility;
     @JsonProperty("wind")
     private Wind wind;
+    @JsonProperty("rain")
+    private Rain rain;
     @JsonProperty("clouds")
     private Clouds clouds;
     @JsonProperty("dt")
@@ -76,7 +79,7 @@ public class OpenWeatherMap {
      * @param base
      * @param wind
      */
-	public OpenWeatherMap(Coord coord, List<Weather> weather, String base, Main main, Integer visibility, Wind wind,
+	public OpenWeatherMap(Coord coord, List<Weather> weather, String base, Main main, Integer visibility, Wind wind, Rain rain,
 			Clouds clouds, Integer dt, Sys sys, Integer timezone, Integer id, String name, Integer cod,
 			Map<String, Object> additionalProperties) {
 		super();
@@ -86,6 +89,7 @@ public class OpenWeatherMap {
 		this.main = main;
 		this.visibility = visibility;
 		this.wind = wind;
+		this.rain = rain;
 		this.clouds = clouds;
 		this.dt = dt;
 		this.sys = sys;
@@ -165,6 +169,17 @@ public class OpenWeatherMap {
 	@JsonProperty("wind")
 	public void setWind(Wind wind) {
 		this.wind = wind;
+	}
+
+	@JsonProperty("rain")
+	public Rain getRain() {
+		return rain;
+	}
+
+
+	@JsonProperty("rain")
+	public void setWind(Rain rain) {
+		this.rain = rain;
 	}
 
 

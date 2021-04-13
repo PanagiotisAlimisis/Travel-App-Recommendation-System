@@ -113,7 +113,7 @@ public class App {
 			middleTraveller.compareCities(cities, 0).forEach(i -> {i.printCityName();});
 		} catch (NullPointerException exception) {
 //			exception.printStackTrace();
-			System.err.println("NULL POINTER EXCEPTION");
+			System.err.println("NULL POINTER EXCEPTION. Tried to pass a wrong parameter on compareCities.");
 		}
 
 		

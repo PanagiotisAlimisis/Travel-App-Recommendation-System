@@ -97,8 +97,6 @@ public class City {
 			this.setTermsFromWikipedia(mediaWikiObject.getQuery().getPages().get(0).getExtract());
 		} catch (JsonParseException e) {
 			throw new WikipediaArticleNotFoundException(this.nameCity);
-		} catch (JsonMappingException e) {
-			throw new WikipediaArticleNotFoundException(this.nameCity);
 		} catch (MalformedURLException e) {
 			throw new WikipediaArticleNotFoundException(this.nameCity);
 		} catch (NullPointerException e) {
@@ -120,8 +118,6 @@ public class City {
 			 this.setNameCity(weatherObject.getName());
 			 this.setNameCountry(weatherObject.getSys().getCountry());
 	    } catch (JsonParseException e) {
-			throw new NoSuchCityException(this.nameCity);
-		} catch (JsonMappingException e) {
 			throw new NoSuchCityException(this.nameCity);
 		} catch (MalformedURLException e) {
 			throw new NoSuchCityException(this.nameCity);
