@@ -2,6 +2,11 @@ package org.it21902;
 
 public class MiddleTraveller extends Traveller{
 
+	public MiddleTraveller(String name, String currentCity) {
+		super(name, currentCity);
+	}
+	
+	
 	@Override
 	public double calculateSimilarity(City c) {
 		double p = 0.6; 

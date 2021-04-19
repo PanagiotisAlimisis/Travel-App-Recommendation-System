@@ -2,6 +2,7 @@ package org.it21902;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,13 +30,22 @@ public abstract class Traveller {
 	 */
 	private ArrayList<Double> geodesicVector;
 	private static ArrayList<Traveller> allTravellersList = new ArrayList<Traveller>();
-	private int age;
+	private int age; //TODO: add age functionality when interactivity with the user is achieved
+	private long timestamp;
+	private String recommendedCity; //TODO: this is used in 4rth deliverable. it could be type of object City.
+	private String name;
+	private String currentCity;
 	
-	
-	public Traveller() {
+
+	public Traveller(String name, String currentCity) {
 		this.termsVector = new ArrayList<Integer>();
 		this.geodesicVector = new ArrayList<Double>();
+		this.timestamp = new Date().getTime();
+		this.recommendedCity = "";
+		this.name = name;
 		allTravellersList.add(this);
+		this.geodesicVector = City.getAllCities().get(currentCity).getGeodesicVector();//TODO: implement logic when city isn't already stored.
+		this.currentCity = currentCity; 
 	}
 
 	/**
@@ -49,18 +59,20 @@ public abstract class Traveller {
 	 * @param cities
 	 * @return
 	 */
-	public City compareCities(ArrayList<City> cities) {
-		double max = Integer.MIN_VALUE;
-		int bestCity = -1;
-		for (int i = 0; i<cities.size(); ++i) {
-			double similarity = this.calculateSimilarity(cities.get(i));
-			if (similarity > max && !(cities.get(i).getGeodesicVector().get(0) == this.getGeodesicVector().get(0) && cities.get(i).getGeodesicVector().get(1) == this.getGeodesicVector().get(1))) {
+	public City compareCities(Map<String, City> cities) {
+		double max = Integer.MAX_VALUE;
+		City bestCity = null;
+		
+		for (Map.Entry<String, City> city: cities.entrySet()) {
+			double similarity = this.calculateSimilarity(city.getValue());
+		
+			if (similarity < max && !(city.getValue().getGeodesicVector().get(0) == this.getGeodesicVector().get(0) && city.getValue().getGeodesicVector().get(1) == this.getGeodesicVector().get(1))) {
 				max = similarity;
-				bestCity = i;
+				bestCity = city.getValue();
 			}
 		}
 		
-		return cities.get(bestCity);
+		return bestCity;
 	}
 	
 	/**
@@ -70,21 +82,20 @@ public abstract class Traveller {
 	 * @param n in [2, 5]
 	 * @return
 	 */
-	public ArrayList<City> compareCities(ArrayList<City> cities, int n) {
+	public ArrayList<City> compareCities(Map<String, City> cities, int n) {
 		if (n < 2 || n > 5) {
-			return null;
+			throw new IllegalArgumentException();
 		}
 		
 		Map<City, Double> citiesWithSimilarities = new HashMap();
 		
-		for (City city: cities) {
-			citiesWithSimilarities.put(city, this.calculateSimilarity(city));
+		for (Map.Entry<String, City> c: cities.entrySet()) {
+			citiesWithSimilarities.put(c.getValue(), this.calculateSimilarity(c.getValue()));
 		}
-		
 		
 		ArrayList<City> bestCities = new ArrayList();
 		for (int i=0; i<n; ++i) {
-			City c = Collections.max(citiesWithSimilarities.entrySet(), Map.Entry.comparingByValue()).getKey();
+			City c = Collections.min(citiesWithSimilarities.entrySet(), Map.Entry.comparingByValue()).getKey();
 			citiesWithSimilarities.remove(c);
 			/*Check if one of the best cities is the same as the one that the traveller is located and reject it from the best cities.*/
 			if (c.getGeodesicVector().get(0) == this.getGeodesicVector().get(0) && c.getGeodesicVector().get(1) == this.getGeodesicVector().get(1)) {
@@ -96,7 +107,6 @@ public abstract class Traveller {
 		
 		return bestCities;
 	}
-	
 	
 	/*Getters & Setters*/
 	public ArrayList<Integer> getTermsVector() {
@@ -123,8 +133,50 @@ public abstract class Traveller {
 		this.age = age;
 	}
 	
+	public static ArrayList<Traveller> getAllTravellersList() {
+		return allTravellersList;
+	}
+
+	public static void setAllTravellersList(ArrayList<Traveller> allTravellersList) {
+		Traveller.allTravellersList = allTravellersList;
+	}
 	
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public String getRecommendedCity() {
+		return recommendedCity;
+	}
+
+	public void setRecommendedCity(String recommendedCity) {
+		this.recommendedCity = recommendedCity;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getCurrentCity() {
+		return currentCity;
+	}
+
+	public void setCurrentCity(String currentCity) {
+		this.currentCity = currentCity;
+	}
+
+	
+		
 	protected double similarityGeodesicVector(City c) {
+//		System.out.println(log2(2 / (2 - calculateDistance(c) / MAX_DISTANCE)));
 		return log2(2 / (2 - calculateDistance(c) / MAX_DISTANCE));
 	}
 	
@@ -160,6 +212,9 @@ public abstract class Traveller {
 		dist = dist * 60 * 1.1515;
 		
 		/*Return distance in kilometers*/
-		return dist*1.609344;
+		return dist*1.609344;		
 	}
+	
+
+	
 }

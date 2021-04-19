@@ -10,7 +10,7 @@ public class WikipediaArticleNotFoundException extends Exception{
 
 	public WikipediaArticleNotFoundException (String message) {
 		super();
-		System.out.println("Wikipedia article not found for query: "+message+".\n");
+		System.err.println("Wikipedia article not found for query: "+message+".\n");
 	}
 	
 }

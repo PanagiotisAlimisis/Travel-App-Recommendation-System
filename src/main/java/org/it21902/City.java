@@ -10,11 +10,15 @@ import myexceptions.WikipediaArticleNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import weather.OpenWeatherMap;
 import wikipedia.MediaWiki;
 
 public class City {
+	private static final String APPID = "8268b79c6118c5f5c576506e09e1318d";
+
 	/**
 	 * 0: museum
 	 * 1: sea
@@ -35,13 +39,28 @@ public class City {
 	private ArrayList<Double> geodesicVector;
 	private String nameCity;
 	private String nameCountry;
-
+	private static Map<String, City> allCities = new HashMap();
 	
 	public City(String nameCity, String nameCountry) {
 		this.termsVector = new ArrayList<Integer>();
 		this.geodesicVector = new ArrayList<Double>();
 		this.nameCity = nameCity;
 		this.nameCountry = nameCountry;
+		try {
+			this.retrieveDataFromOpenWeatherMap();
+			this.retrieveDataFromWikipedia();
+		} catch (NoSuchCityException e) {
+//			System.err.println(nameCity);
+			//e.printStackTrace();
+		} catch (WikipediaArticleNotFoundException e) {
+//			System.err.println(nameCity);
+		}
+	}
+	
+	public static void addNewCity(String cityName, String countryName) {
+		if (allCities.containsKey(cityName)) return;
+//		System.out.println(cityName);
+		new City(cityName, countryName);
 	}
 	
 	/*Getters & Setters*/
@@ -82,6 +101,14 @@ public class City {
 		this.nameCountry = nameCountry;
 	}
 	
+
+	public static Map<String, City> getAllCities() {
+		return allCities;
+	}
+
+	public static void setAllCities(Map<String, City> allCities) {
+		City.allCities = allCities;
+	}
 	
 	public void printCityName() {
 		System.out.println(this.nameCity);
@@ -95,6 +122,7 @@ public class City {
 		try {
 			mediaWikiObject =  mapper.readValue(new URL("https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles="+this.getNameCity()+"&format=json&formatversion=2"),MediaWiki.class);
 			this.setTermsFromWikipedia(mediaWikiObject.getQuery().getPages().get(0).getExtract());
+			allCities.put(this.nameCity, this);
 		} catch (JsonParseException e) {
 			throw new WikipediaArticleNotFoundException(this.nameCity);
 		} catch (MalformedURLException e) {
@@ -106,12 +134,12 @@ public class City {
 		}	
 	 }
 	 
-	 public void retrieveDataFromOpenWeatherMap(String appid) throws NoSuchCityException {
+	 public void retrieveDataFromOpenWeatherMap() throws NoSuchCityException {
 	    ObjectMapper mapper = new ObjectMapper(); 
 		 
 		OpenWeatherMap weatherObject=null;
 	    try {
-	    	weatherObject = mapper.readValue(new URL("http://api.openweathermap.org/data/2.5/weather?q="+this.getNameCity()+","+this.getNameCountry()+"&APPID="+appid+""), OpenWeatherMap.class);
+	    	weatherObject = mapper.readValue(new URL("http://api.openweathermap.org/data/2.5/weather?q="+this.getNameCity()+","+this.getNameCountry()+"&APPID="+APPID+""), OpenWeatherMap.class);
 			 this.setTermsFromOpenWeatherMap(weatherObject.getCoord().getLat(), weatherObject.getCoord().getLon());
 			 /*Sets the original names because the user might have misspelled the name. For example the user could enter "Athen" instead of "Athens"
 			  * and the search wouldn't fail in such minor misspellings, so we set the real names here.*/
