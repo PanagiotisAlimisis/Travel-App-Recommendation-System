@@ -2,6 +2,9 @@ package org.it21902;
 
 public class YoungTraveller extends Traveller{
 
+	public YoungTraveller()
+		{super();}
+	
 	public YoungTraveller(String name, String currentCity) {
 		super(name,currentCity);
 	}
@@ -29,6 +32,16 @@ public class YoungTraveller extends Traveller{
 		sum = Math.sqrt(sum) + 1; /*denominator*/
 //		System.out.println(sum);
 		return 1 / sum;
+	}
+
+
+	@Override
+	public int compareTo(Traveller trav) {
+		if (this.getTimestamp() == trav.getTimestamp())
+			return 0;
+		else if (this.getTimestamp() > trav.getTimestamp())
+			return 1;
+		return -1;
 	}
 
 

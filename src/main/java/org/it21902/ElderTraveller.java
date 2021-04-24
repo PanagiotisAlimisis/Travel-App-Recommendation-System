@@ -3,6 +3,9 @@ package org.it21902;
 
 public class ElderTraveller extends Traveller{
 
+	public ElderTraveller() 
+		{super();}
+	
 	public ElderTraveller(String name, String currentCity) {
 		super(name, currentCity);
 	}
@@ -29,5 +32,14 @@ public class ElderTraveller extends Traveller{
 		}
 		
 		return intersection/10.0;
+	}
+	
+	@Override
+	public int compareTo(Traveller trav) {
+		if (this.getTimestamp() == trav.getTimestamp())
+			return 0;
+		else if (this.getTimestamp() > trav.getTimestamp())
+			return 1;
+		return -1;
 	}
 }

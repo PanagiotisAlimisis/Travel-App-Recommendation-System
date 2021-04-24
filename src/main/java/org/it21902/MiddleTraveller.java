@@ -2,6 +2,9 @@ package org.it21902;
 
 public class MiddleTraveller extends Traveller{
 
+	public MiddleTraveller()
+		{super();}
+	
 	public MiddleTraveller(String name, String currentCity) {
 		super(name, currentCity);
 	}
@@ -35,5 +38,14 @@ public class MiddleTraveller extends Traveller{
 		
 		return user*city != 0 ? (numerator / (user * city)): -1;
 	}	
+	
+	@Override
+	public int compareTo(Traveller trav) {
+		if (this.getTimestamp() == trav.getTimestamp())
+			return 0;
+		else if (this.getTimestamp() > trav.getTimestamp())
+			return 1;
+		return -1;
+	}
 	
 }

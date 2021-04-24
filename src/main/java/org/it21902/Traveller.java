@@ -1,16 +1,45 @@
 package org.it21902;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-public abstract class Traveller {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+
+
+@JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include=JsonTypeInfo.As.PROPERTY, property="@class")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = YoungTraveller.class),
+    @JsonSubTypes.Type(value = MiddleTraveller.class),
+    @JsonSubTypes.Type(value = ElderTraveller.class)
+})
+public abstract class Traveller implements Comparable<Traveller>{
 	
 	/*Largest distance between two cities on Earth that a trip can be achieved.*/
 	private static final int MAX_DISTANCE = 18000;
 	
+	
+	private String fullName;
 	/**
 	 * 0: museum
 	 * 1: sea
@@ -33,16 +62,18 @@ public abstract class Traveller {
 	private int age; //TODO: add age functionality when interactivity with the user is achieved
 	private long timestamp;
 	private String recommendedCity; //TODO: this is used in 4rth deliverable. it could be type of object City.
-	private String name;
 	private String currentCity;
 	
-
-	public Traveller(String name, String currentCity) {
+	
+	public Traveller()
+		{}
+	
+	public Traveller(String fullName, String currentCity) {
 		this.termsVector = new ArrayList<Integer>();
 		this.geodesicVector = new ArrayList<Double>();
 		this.timestamp = new Date().getTime();
 		this.recommendedCity = "";
-		this.name = name;
+		this.fullName = fullName;
 		allTravellersList.add(this);
 		this.geodesicVector = City.getAllCities().get(currentCity).getGeodesicVector();//TODO: implement logic when city isn't already stored.
 		this.currentCity = currentCity; 
@@ -108,6 +139,54 @@ public abstract class Traveller {
 		return bestCities;
 	}
 	
+	public static void printTravellersFromLastToFirst() {
+		Set<Traveller> noDuplicateSet = new HashSet<>(allTravellersList);
+		ArrayList<Traveller> noDuplicateList = new ArrayList<>(noDuplicateSet);
+		Collections.sort(noDuplicateList);
+		Collections.reverse(noDuplicateList);
+		Iterator<Traveller> it = noDuplicateList.iterator();
+		while (it.hasNext()) {
+			Traveller t = it.next();
+			System.out.println(t.getFullName() + " " + t.getTimestamp());
+		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static void writeTravellersToJson() {
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+	
+		objectMapper.enableDefaultTyping(
+			    ObjectMapper.DefaultTyping.OBJECT_AND_NON_CONCRETE);
+		
+		try {
+			objectMapper.writeValue(new File("Travellers.json"), allTravellersList);
+		} catch (JsonGenerationException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void readTravellersFromJson() {
+		ObjectMapper objectMapper = new ObjectMapper();
+		 try {
+			ArrayList<Traveller>  travellers = objectMapper.readValue(new File("Travellers.json"), objectMapper.getTypeFactory().constructCollectionType(List.class, Traveller.class));
+			setAllTravellersList(travellers);
+		 } catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	}
+	
 	/*Getters & Setters*/
 	public ArrayList<Integer> getTermsVector() {
 		return termsVector;
@@ -157,12 +236,12 @@ public abstract class Traveller {
 		this.recommendedCity = recommendedCity;
 	}
 
-	public String getName() {
-		return name;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 	
 	public String getCurrentCity() {
@@ -215,6 +294,26 @@ public abstract class Traveller {
 		return dist*1.609344;		
 	}
 	
+	@Override
+    public boolean equals(Object o) {
+		 if (o == this) {
+            return true;
+        }
 
-	
+        if (!(o instanceof Traveller)) {
+            return false;
+        }
+          
+        Traveller c = (Traveller) o;
+
+        return this.fullName.equals(c.fullName);
+    }
+	 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+	    result = prime * result + ((fullName == null) ? 0 : fullName.hashCode());
+		return result;
+	 }
 }
