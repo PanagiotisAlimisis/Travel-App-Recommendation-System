@@ -1,43 +1,58 @@
 package org.it21902;
 
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
+import db.connection.OracleDbConnection;
+
 public class App {
 	
 
 	public static void main(String[] args) throws InterruptedException {
+		Connection connection=null;
+		try {
+			connection = OracleDbConnection.getDbConnection().getOracleConnection();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		City.readCitiesFromDb(connection);
+//		System.exit(0);
 		Traveller.readTravellersFromJson();
 
-		City.addNewCity("Athens", "gr");
-		City.addNewCity("Thessaloniki", "gr");
-		City.addNewCity("Madrid", "es");
-		City.addNewCity("Berlin", "de");
-		City.addNewCity("fggs", "bf");
-		City.addNewCity("California", "us");
-		City.addNewCity("Tokyo", "jp");
-		City.addNewCity("Jakarta", "id");
-		City.addNewCity("city", "country");
-		City.addNewCity("Vienna", "at");
-		City.addNewCity("Tripolis", "gr");
-		City.addNewCity("Athens", "gr");
-		City.addNewCity("Thessaloniki", "gr");
-		City.addNewCity("Madrid", "es");
-		City.addNewCity("Berlin", "de");
-		City.addNewCity("fggs", "bf");
-		City.addNewCity("California", "us");
-		City.addNewCity("Tokyo", "jp");
-		City.addNewCity("Jakarta", "id");
-		City.addNewCity("city", "country");
-		City.addNewCity("Vienna", "at");
-		City.addNewCity("Tripolis", "gr");
-		City.addNewCity("Rome", "it");
-		City.addNewCity("Los Angeles", "us");
-		City.addNewCity("Sparta", "gr");
-		City.addNewCity("Kalamata", "gr");
+//		City.addNewCity("Argos", "gr");
+//		City.addNewCity("Corinth", "gr");
+//		City.addNewCity("Athens", "gr");
+//		City.addNewCity("Thessaloniki", "gr");
+//		City.addNewCity("Madrid", "es");
+//		City.addNewCity("Berlin", "de");
+//		City.addNewCity("fggs", "bf");
+//		City.addNewCity("California", "us");
+//		City.addNewCity("Tokyo", "jp");
+//		City.addNewCity("Jakarta", "id");
+//		City.addNewCity("city", "country");
+//		City.addNewCity("Vienna", "at");
+//		City.addNewCity("Tripolis", "gr");
+//		City.addNewCity("Athens", "gr");
+//		City.addNewCity("Thessaloniki", "gr");
+//		City.addNewCity("Madrid", "es");
+//		City.addNewCity("Berlin", "de");
+//		City.addNewCity("fggs", "bf");
+//		City.addNewCity("California", "us");
+//		City.addNewCity("Tokyo", "jp");
+//		City.addNewCity("Jakarta", "id");
+//		City.addNewCity("city", "country");
+//		City.addNewCity("Vienna", "at");
+//		City.addNewCity("Tripolis", "gr");
+//		City.addNewCity("Rome", "it");
+//		City.addNewCity("Los Angeles", "us");
+//		City.addNewCity("Sparta", "gr");
+//		City.addNewCity("Kalamata", "gr");
 //		new YoungTraveller("george", "Athens");
 //		new MiddleTraveller("peter", "Berlin");
 //		Thread.sleep(400);
@@ -49,7 +64,7 @@ public class App {
 //		new YoungTraveller("panagiotis", "Vienna");
 //		Thread.sleep(400);
 //		new MiddleTraveller("panagiotis", "Vienna");
-//		new ElderTraveller("panagiotis", "Vienna");
+		new ElderTraveller("John Doe", "Rome");
 		
 
 		System.out.println("All cities");
@@ -87,5 +102,8 @@ public class App {
 		System.out.println("\n");
 		Traveller.printTravellersFromLastToFirst();
 		Traveller.writeTravellersToJson();
+		
+		City.writeCitiesToDatabase(connection);
+		
 	}
 }

@@ -9,8 +9,14 @@ import myexceptions.WikipediaArticleNotFoundException;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import weather.OpenWeatherMap;
@@ -55,8 +61,20 @@ public class City {
 		} catch (WikipediaArticleNotFoundException e) {
 //			System.err.println(nameCity);
 		}
+		allCities.put(this.nameCity, this);
 	}
 	
+	public City(ArrayList<Integer> termsVector, ArrayList<Double> geodesicVector, String nameCity, String nameCountry) {
+		super();
+		this.termsVector = termsVector;
+		this.geodesicVector = geodesicVector;
+		this.nameCity = nameCity;
+		this.nameCountry = nameCountry;
+		allCities.put(this.nameCity, this);
+	}
+
+
+
 	public static void addNewCity(String cityName, String countryName) {
 		if (allCities.containsKey(cityName)) return;
 //		System.out.println(cityName);
@@ -114,6 +132,74 @@ public class City {
 		System.out.println(this.nameCity);
 	}
 	
+	public static void writeCitiesToDatabase(Connection connection) {
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO CITY VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			Iterator<Map.Entry<String, City>> it = allCities.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry<String, City> entry = it.next();
+				preparedStatement.setString(1, entry.getKey());
+				preparedStatement.setString(2, entry.getValue().getNameCountry());
+				preparedStatement.setDouble(3, entry.getValue().getGeodesicVector().get(0));
+				preparedStatement.setDouble(4, entry.getValue().getGeodesicVector().get(1));
+				preparedStatement.setInt(5, entry.getValue().getTermsVector().get(0));
+				preparedStatement.setInt(6, entry.getValue().getTermsVector().get(1));
+				preparedStatement.setInt(7, entry.getValue().getTermsVector().get(2));
+				preparedStatement.setInt(8, entry.getValue().getTermsVector().get(3));
+				preparedStatement.setInt(9, entry.getValue().getTermsVector().get(4));
+				preparedStatement.setInt(10, entry.getValue().getTermsVector().get(5));
+				preparedStatement.setInt(11, entry.getValue().getTermsVector().get(6));
+				preparedStatement.setInt(12, entry.getValue().getTermsVector().get(7));
+				preparedStatement.setInt(13, entry.getValue().getTermsVector().get(8));
+				preparedStatement.setInt(14, entry.getValue().getTermsVector().get(9));
+				
+				try {
+					int numRowChanged = preparedStatement.executeUpdate();
+					System.out.println("Rows "+numRowChanged+" changed.");
+				} catch (SQLIntegrityConstraintViolationException e) {
+					System.err.println("IntegrityConstraintViolationException");
+				} 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void readCitiesFromDb(Connection connection) {
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM CITY");
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while (resultSet.next()) {
+				String cityName = resultSet.getString("name_city");
+				String countryName = resultSet.getString("name_country");
+				
+				ArrayList<Double> geoVect = new ArrayList<>();
+				geoVect.add(resultSet.getDouble("latitude"));
+				geoVect.add(resultSet.getDouble("longitude"));
+				
+				ArrayList<Integer> termsVect = new ArrayList<>();
+				termsVect.add(resultSet.getInt("museum"));
+				termsVect.add(resultSet.getInt("sea"));
+				termsVect.add(resultSet.getInt("mountain"));
+				termsVect.add(resultSet.getInt("cafe"));
+				termsVect.add(resultSet.getInt("restaurant"));
+				termsVect.add(resultSet.getInt("bar"));
+				termsVect.add(resultSet.getInt("stadium"));
+				termsVect.add(resultSet.getInt("park"));
+				termsVect.add(resultSet.getInt("statue"));
+				termsVect.add(resultSet.getInt("square"));
+				
+				System.out.println(cityName + " " + countryName + " " + geoVect + " " + termsVect);
+				new City(termsVect, geoVect, cityName, countryName);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 
 	 public void retrieveDataFromWikipedia() throws WikipediaArticleNotFoundException{
 		 ObjectMapper mapper = new ObjectMapper(); 
@@ -122,7 +208,6 @@ public class City {
 		try {
 			mediaWikiObject =  mapper.readValue(new URL("https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles="+this.getNameCity()+"&format=json&formatversion=2"),MediaWiki.class);
 			this.setTermsFromWikipedia(mediaWikiObject.getQuery().getPages().get(0).getExtract());
-			allCities.put(this.nameCity, this);
 		} catch (JsonParseException e) {
 			throw new WikipediaArticleNotFoundException(this.nameCity);
 		} catch (MalformedURLException e) {
