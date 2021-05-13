@@ -12,18 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 
 
@@ -74,9 +69,22 @@ public abstract class Traveller implements Comparable<Traveller>{
 		this.timestamp = new Date().getTime();
 		this.recommendedCity = "";
 		this.fullName = fullName;
-		allTravellersList.add(this);
 		this.geodesicVector = City.getAllCities().get(currentCity).getGeodesicVector();//TODO: implement logic when city isn't already stored.
 		this.currentCity = currentCity; 
+
+
+		if (!allTravellersList.contains(this)) {
+				allTravellersList.add(this);
+		} else {
+			System.out.println("here");
+			
+			for (int i=0; i<allTravellersList.size(); ++i) {
+				if (allTravellersList.get(i).equals(this)) {
+					System.out.println("here");
+					allTravellersList.set(i, this);
+				}
+			}
+		}
 	}
 
 	/**
@@ -91,13 +99,15 @@ public abstract class Traveller implements Comparable<Traveller>{
 	 * @return
 	 */
 	public City compareCities(Map<String, City> cities) {
-		double max = Integer.MAX_VALUE;
+//		double max = Double.MAX_VALUE;
+		double max = Double.MIN_VALUE;
 		City bestCity = null;
 		
 		for (Map.Entry<String, City> city: cities.entrySet()) {
 			double similarity = this.calculateSimilarity(city.getValue());
+//			System.out.println(city.getKey()+" - - "+similarity);
 		
-			if (similarity < max && !(city.getValue().getGeodesicVector().get(0) == this.getGeodesicVector().get(0) && city.getValue().getGeodesicVector().get(1) == this.getGeodesicVector().get(1))) {
+			if (similarity > max && !(city.getValue().getGeodesicVector().get(0) == this.getGeodesicVector().get(0) && city.getValue().getGeodesicVector().get(1) == this.getGeodesicVector().get(1))) {
 				max = similarity;
 				bestCity = city.getValue();
 			}
@@ -118,17 +128,16 @@ public abstract class Traveller implements Comparable<Traveller>{
 			throw new IllegalArgumentException();
 		}
 		
-		Map<City, Double> citiesWithSimilarities = new HashMap();
+		Map<City, Double> citiesWithSimilarities = new HashMap<>();
 		
 		for (Map.Entry<String, City> c: cities.entrySet()) {
 			citiesWithSimilarities.put(c.getValue(), this.calculateSimilarity(c.getValue()));
 		}
 		
-		ArrayList<City> bestCities = new ArrayList();
+		ArrayList<City> bestCities = new ArrayList<>();
 		for (int i=0; i<n; ++i) {
-			City c = Collections.min(citiesWithSimilarities.entrySet(), Map.Entry.comparingByValue()).getKey();
+			City c = Collections.max(citiesWithSimilarities.entrySet(), Map.Entry.comparingByValue()).getKey();
 			citiesWithSimilarities.remove(c);
-			/*Check if one of the best cities is the same as the one that the traveller is located and reject it from the best cities.*/
 			if (c.getGeodesicVector().get(0) == this.getGeodesicVector().get(0) && c.getGeodesicVector().get(1) == this.getGeodesicVector().get(1)) {
 				--i;
 				continue;
@@ -144,6 +153,7 @@ public abstract class Traveller implements Comparable<Traveller>{
 		ArrayList<Traveller> noDuplicateList = new ArrayList<>(noDuplicateSet);
 		Collections.sort(noDuplicateList);
 		Collections.reverse(noDuplicateList);
+		
 		Iterator<Traveller> it = noDuplicateList.iterator();
 		while (it.hasNext()) {
 			Traveller t = it.next();
@@ -176,15 +186,25 @@ public abstract class Traveller implements Comparable<Traveller>{
 			ArrayList<Traveller>  travellers = objectMapper.readValue(new File("Travellers.json"), objectMapper.getTypeFactory().constructCollectionType(List.class, Traveller.class));
 			setAllTravellersList(travellers);
 		 } catch (JsonParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+	}
+	
+	public static Traveller giveFreeTicket(City city) {
+		double maxSimilarity = -1;
+		Traveller winnerOfTheFreeTicket = null;
+		for (Traveller t: allTravellersList) {
+			double similarity = t.calculateSimilarity(city);
+			if (similarity > maxSimilarity && !(city.getGeodesicVector().get(0) == t.getGeodesicVector().get(0) && city.getGeodesicVector().get(1) == t.getGeodesicVector().get(1))) {
+				maxSimilarity = similarity;
+				winnerOfTheFreeTicket = t;
+			}
+		}
+		return winnerOfTheFreeTicket;
 	}
 	
 	/*Getters & Setters*/
@@ -255,7 +275,6 @@ public abstract class Traveller implements Comparable<Traveller>{
 	
 		
 	protected double similarityGeodesicVector(City c) {
-//		System.out.println(log2(2 / (2 - calculateDistance(c) / MAX_DISTANCE)));
 		return log2(2 / (2 - calculateDistance(c) / MAX_DISTANCE));
 	}
 	
@@ -264,9 +283,8 @@ public abstract class Traveller implements Comparable<Traveller>{
 	 * @param N
 	 * @return
 	 */
-	private static double log2(double N) 
-    { 
-        return (Math.log(N) / Math.log(2)); 
+	private static double log2(double N) { 
+        return (Math.log(N) / Math.log(2));
     } 
 
 	

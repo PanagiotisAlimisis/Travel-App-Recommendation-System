@@ -8,7 +8,7 @@ public class OracleDbConnection {
     private static OracleDbConnection dbConnection = null;
     private Connection oracleDbConnection;
     private String username="IT21902";
-    private String password="Alim!@()0";
+    private String password="																																										Alim!@()0";
     
     private OracleDbConnection() {
         try {
@@ -20,8 +20,8 @@ public class OracleDbConnection {
         }
     }
 
-    public static OracleDbConnection getDbConnection() {
-        if(null == dbConnection) {
+    public static OracleDbConnection getInstance() {
+        if(dbConnection == null) {
             dbConnection = new OracleDbConnection();
         }
 

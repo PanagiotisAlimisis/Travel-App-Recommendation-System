@@ -36,7 +36,7 @@ public class MiddleTraveller extends Traveller{
 		user = Math.sqrt(user);
 		city = Math.sqrt(city);
 		
-		return user*city != 0 ? (numerator / (user * city)): -1;
+		return user*city != 0 ? (numerator / (user * city)): 0;
 	}	
 	
 	@Override

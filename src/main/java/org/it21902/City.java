@@ -1,7 +1,6 @@
 package org.it21902;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import myexceptions.NoSuchCityException;
@@ -45,9 +44,11 @@ public class City {
 	private ArrayList<Double> geodesicVector;
 	private String nameCity;
 	private String nameCountry;
-	private static Map<String, City> allCities = new HashMap();
+	private static Map<String, City> allCities = new HashMap<>();
 	
 	public City(String nameCity, String nameCountry) {
+		if (allCities.containsKey(nameCity)) return;
+		
 		this.termsVector = new ArrayList<Integer>();
 		this.geodesicVector = new ArrayList<Double>();
 		this.nameCity = nameCity;
@@ -55,13 +56,12 @@ public class City {
 		try {
 			this.retrieveDataFromOpenWeatherMap();
 			this.retrieveDataFromWikipedia();
+			allCities.put(this.nameCity, this);
 		} catch (NoSuchCityException e) {
-//			System.err.println(nameCity);
-			//e.printStackTrace();
+			e.printStackTrace();
 		} catch (WikipediaArticleNotFoundException e) {
-//			System.err.println(nameCity);
+			e.printStackTrace();
 		}
-		allCities.put(this.nameCity, this);
 	}
 	
 	public City(ArrayList<Integer> termsVector, ArrayList<Double> geodesicVector, String nameCity, String nameCountry) {
@@ -73,13 +73,10 @@ public class City {
 		allCities.put(this.nameCity, this);
 	}
 
-
-
-	public static void addNewCity(String cityName, String countryName) {
-		if (allCities.containsKey(cityName)) return;
-//		System.out.println(cityName);
-		new City(cityName, countryName);
-	}
+//	public static void addNewCity(String cityName, String countryName) {
+		
+//		new City(cityName, countryName);
+//	}
 	
 	/*Getters & Setters*/
 	public ArrayList<Integer> getTermsVector() {
@@ -155,10 +152,10 @@ public class City {
 				
 				try {
 					int numRowChanged = preparedStatement.executeUpdate();
-					System.out.println("Rows "+numRowChanged+" changed.");
+					System.out.println(numRowChanged+" rows inserted.");
 				} catch (SQLIntegrityConstraintViolationException e) {
 					System.err.println("IntegrityConstraintViolationException");
-				} 
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -190,7 +187,7 @@ public class City {
 				termsVect.add(resultSet.getInt("statue"));
 				termsVect.add(resultSet.getInt("square"));
 				
-				System.out.println(cityName + " " + countryName + " " + geoVect + " " + termsVect);
+//				System.out.println(cityName + " " + countryName + " " + geoVect + " " + termsVect);
 				new City(termsVect, geoVect, cityName, countryName);
 			}
 			
