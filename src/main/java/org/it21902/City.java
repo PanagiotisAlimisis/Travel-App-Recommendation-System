@@ -3,6 +3,7 @@ package org.it21902;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import db.connection.OracleDbConnection;
 import myexceptions.NoSuchCityException;
 import myexceptions.WikipediaArticleNotFoundException;
 
@@ -45,18 +46,28 @@ public class City {
 	private String nameCity;
 	private String nameCountry;
 	private static Map<String, City> allCities = new HashMap<>();
+	private boolean isInDb;
 	
-	public City(String nameCity, String nameCountry) {
+	public City(String nameCity) {
 		if (allCities.containsKey(nameCity)) return;
 		
 		this.termsVector = new ArrayList<Integer>();
 		this.geodesicVector = new ArrayList<Double>();
 		this.nameCity = nameCity;
-		this.nameCountry = nameCountry;
+		this.nameCountry = "";
+		this.isInDb = false;
 		try {
 			this.retrieveDataFromOpenWeatherMap();
 			this.retrieveDataFromWikipedia();
 			allCities.put(this.nameCity, this);
+			Connection connection=null;
+			try {
+				connection = OracleDbConnection.getInstance().getOracleConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			writeCitiesToDatabase(connection);
+			this.isInDb = true;
 		} catch (NoSuchCityException e) {
 			e.printStackTrace();
 		} catch (WikipediaArticleNotFoundException e) {
@@ -71,6 +82,7 @@ public class City {
 		this.nameCity = nameCity;
 		this.nameCountry = nameCountry;
 		allCities.put(this.nameCity, this);
+		this.isInDb = true;
 	}
 
 //	public static void addNewCity(String cityName, String countryName) {
@@ -135,26 +147,29 @@ public class City {
 			Iterator<Map.Entry<String, City>> it = allCities.entrySet().iterator();
 			while (it.hasNext()) {
 				Map.Entry<String, City> entry = it.next();
-				preparedStatement.setString(1, entry.getKey());
-				preparedStatement.setString(2, entry.getValue().getNameCountry());
-				preparedStatement.setDouble(3, entry.getValue().getGeodesicVector().get(0));
-				preparedStatement.setDouble(4, entry.getValue().getGeodesicVector().get(1));
-				preparedStatement.setInt(5, entry.getValue().getTermsVector().get(0));
-				preparedStatement.setInt(6, entry.getValue().getTermsVector().get(1));
-				preparedStatement.setInt(7, entry.getValue().getTermsVector().get(2));
-				preparedStatement.setInt(8, entry.getValue().getTermsVector().get(3));
-				preparedStatement.setInt(9, entry.getValue().getTermsVector().get(4));
-				preparedStatement.setInt(10, entry.getValue().getTermsVector().get(5));
-				preparedStatement.setInt(11, entry.getValue().getTermsVector().get(6));
-				preparedStatement.setInt(12, entry.getValue().getTermsVector().get(7));
-				preparedStatement.setInt(13, entry.getValue().getTermsVector().get(8));
-				preparedStatement.setInt(14, entry.getValue().getTermsVector().get(9));
-				
-				try {
-					int numRowChanged = preparedStatement.executeUpdate();
-					System.out.println(numRowChanged+" rows inserted.");
-				} catch (SQLIntegrityConstraintViolationException e) {
-					System.err.println("IntegrityConstraintViolationException");
+
+				if (!entry.getValue().isInDb) {
+					preparedStatement.setString(1, entry.getKey());
+					preparedStatement.setString(2, entry.getValue().getNameCountry());
+					preparedStatement.setDouble(3, entry.getValue().getGeodesicVector().get(0));
+					preparedStatement.setDouble(4, entry.getValue().getGeodesicVector().get(1));
+					preparedStatement.setInt(5, entry.getValue().getTermsVector().get(0));
+					preparedStatement.setInt(6, entry.getValue().getTermsVector().get(1));
+					preparedStatement.setInt(7, entry.getValue().getTermsVector().get(2));
+					preparedStatement.setInt(8, entry.getValue().getTermsVector().get(3));
+					preparedStatement.setInt(9, entry.getValue().getTermsVector().get(4));
+					preparedStatement.setInt(10, entry.getValue().getTermsVector().get(5));
+					preparedStatement.setInt(11, entry.getValue().getTermsVector().get(6));
+					preparedStatement.setInt(12, entry.getValue().getTermsVector().get(7));
+					preparedStatement.setInt(13, entry.getValue().getTermsVector().get(8));
+					preparedStatement.setInt(14, entry.getValue().getTermsVector().get(9));
+					
+					try {
+						int numRowChanged = preparedStatement.executeUpdate();
+						System.out.println(numRowChanged+" rows inserted.");
+					} catch (SQLIntegrityConstraintViolationException e) {
+						System.err.println("IntegrityConstraintViolationException");
+					}
 				}
 			}
 		} catch (SQLException e) {
@@ -237,6 +252,8 @@ public class City {
 			throw new NoSuchCityException(this.nameCity);
 		}
 	 }
+	 
+	 
 	 
 	 private void setTermsFromOpenWeatherMap(Double lat, Double lon) {
 		 ArrayList<Double> temp = new ArrayList<Double>();

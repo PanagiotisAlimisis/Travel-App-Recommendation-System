@@ -1,13 +1,14 @@
 package org.it21902;
 
+import java.util.ArrayList;
 
 public class ElderTraveller extends Traveller{
 
 	public ElderTraveller() 
 		{super();}
 	
-	public ElderTraveller(String name, String currentCity) {
-		super(name, currentCity);
+	public ElderTraveller(String name, int age, String currentCity, ArrayList<Integer> termsVector) {
+		super(name, age, currentCity, termsVector);
 	}
 	
 	@Override

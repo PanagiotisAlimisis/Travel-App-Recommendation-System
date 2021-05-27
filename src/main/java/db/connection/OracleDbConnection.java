@@ -8,7 +8,7 @@ public class OracleDbConnection {
     private static OracleDbConnection dbConnection = null;
     private Connection oracleDbConnection;
     private String username="IT21902";
-    private String password="																																										Alim!@()0";
+//    private String password=""; TODO:
     
     private OracleDbConnection() {
         try {
@@ -16,7 +16,8 @@ public class OracleDbConnection {
             oracleDbConnection = DriverManager.getConnection(url, username, password);
             System.out.println("Connection to Oracle Database has been established.");
         } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+        	System.err.println("Fill out password in OracleDbConnection.java");
+//            sqlException.printStackTrace();
         }
     }
 

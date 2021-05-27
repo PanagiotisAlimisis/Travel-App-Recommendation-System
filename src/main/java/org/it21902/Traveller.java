@@ -31,7 +31,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public abstract class Traveller implements Comparable<Traveller>{
 	
 	/*Largest distance between two cities on Earth that a trip can be achieved.*/
-	private static final int MAX_DISTANCE = 18000;
+	private static final int MAX_DISTANCE = 15000;
 	
 	
 	private String fullName;
@@ -63,15 +63,19 @@ public abstract class Traveller implements Comparable<Traveller>{
 	public Traveller()
 		{}
 	
-	public Traveller(String fullName, String currentCity) {
-		this.termsVector = new ArrayList<Integer>();
-		this.geodesicVector = new ArrayList<Double>();
+	public Traveller(String fullName, int age, String currentCity, ArrayList<Integer> termsVector) {
 		this.timestamp = new Date().getTime();
 		this.recommendedCity = "";
 		this.fullName = fullName;
-		this.geodesicVector = City.getAllCities().get(currentCity).getGeodesicVector();//TODO: implement logic when city isn't already stored.
+		this.termsVector = termsVector;
+		try {
+			this.geodesicVector = City.getAllCities().get(currentCity).getGeodesicVector();
+		} catch (NullPointerException e) {
+			new City(currentCity);
+			this.geodesicVector = City.getAllCities().get(currentCity).getGeodesicVector();	
+		}
 		this.currentCity = currentCity; 
-
+		this.age = age;
 
 		if (!allTravellersList.contains(this)) {
 				allTravellersList.add(this);

@@ -1,73 +1,9 @@
 [ [ "org.it21902.YoungTraveller", {
-  "fullName" : "george",
-  "termsVector" : [ 0, 3, 2, 10, 3, 8, 9, 3, 3, 3 ],
+  "fullName" : "Panagiotis Alimisis",
+  "termsVector" : [ 0, 0, 1, 10, 1, 5, 2, 5, 9, 4 ],
   "geodesicVector" : [ 37.9795, 23.7162 ],
-  "age" : 0,
-  "timestamp" : 1620908907417,
+  "age" : 20,
+  "timestamp" : 1622101207080,
   "recommendedCity" : "",
   "currentCity" : "Athens"
-} ], [ "org.it21902.MiddleTraveller", {
-  "fullName" : "peter",
-  "termsVector" : [ 7, 7, 1, 3, 6, 1, 9, 1, 9, 2 ],
-  "geodesicVector" : [ 52.5244, 13.4105 ],
-  "age" : 0,
-  "timestamp" : 1620908907418,
-  "recommendedCity" : "",
-  "currentCity" : "Berlin"
-} ], [ "org.it21902.YoungTraveller", {
-  "fullName" : "john",
-  "termsVector" : [ 4, 2, 9, 7, 0, 1, 3, 10, 1, 1 ],
-  "geodesicVector" : [ 40.4165, -3.7026 ],
-  "age" : 0,
-  "timestamp" : 1620908907818,
-  "recommendedCity" : "",
-  "currentCity" : "Madrid"
-} ], [ "org.it21902.ElderTraveller", {
-  "fullName" : "mary",
-  "termsVector" : [ 8, 0, 10, 4, 6, 10, 7, 2, 5, 3 ],
-  "geodesicVector" : [ -6.2146, 106.8451 ],
-  "age" : 0,
-  "timestamp" : 1620908907819,
-  "recommendedCity" : "",
-  "currentCity" : "Jakarta"
-} ], [ "org.it21902.ElderTraveller", {
-  "fullName" : "anastasia",
-  "termsVector" : [ 8, 5, 1, 6, 10, 3, 5, 1, 6, 6 ],
-  "geodesicVector" : [ 38.3004, -76.5074 ],
-  "age" : 0,
-  "timestamp" : 1620908908219,
-  "recommendedCity" : "",
-  "currentCity" : "California"
-} ], [ "org.it21902.YoungTraveller", {
-  "fullName" : "panagiotis",
-  "termsVector" : [ 9, 10, 5, 2, 10, 7, 7, 0, 7, 0 ],
-  "geodesicVector" : [ 37.5089, 22.3794 ],
-  "age" : 0,
-  "timestamp" : 1620916114641,
-  "recommendedCity" : "",
-  "currentCity" : "Tripoli"
-} ], [ "org.it21902.ElderTraveller", {
-  "fullName" : "John Doe",
-  "termsVector" : [ 1, 2, 6, 9, 8, 3, 8, 8, 9, 7 ],
-  "geodesicVector" : [ 41.8947, 12.4839 ],
-  "age" : 0,
-  "timestamp" : 1620908908619,
-  "recommendedCity" : "",
-  "currentCity" : "Rome"
-} ], [ "org.it21902.YoungTraveller", {
-  "fullName" : "George Georgiou",
-  "termsVector" : [ 0, 2, 10, 0, 2, 10, 5, 2, 6, 1 ],
-  "geodesicVector" : [ 51.48, -3.18 ],
-  "age" : 0,
-  "timestamp" : 1620915189484,
-  "recommendedCity" : "",
-  "currentCity" : "Cardiff"
-} ], [ "org.it21902.YoungTraveller", {
-  "fullName" : "Panagiotis Alimisis",
-  "termsVector" : [ 2, 1, 9, 8, 10, 10, 8, 1, 2, 0 ],
-  "geodesicVector" : [ 51.342, 12.375 ],
-  "age" : 0,
-  "timestamp" : 1620916588246,
-  "recommendedCity" : "",
-  "currentCity" : "Leipzig"
 } ] ]

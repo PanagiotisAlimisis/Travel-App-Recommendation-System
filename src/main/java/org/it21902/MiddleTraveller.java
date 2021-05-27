@@ -1,12 +1,14 @@
 package org.it21902;
 
+import java.util.ArrayList;
+
 public class MiddleTraveller extends Traveller{
 
 	public MiddleTraveller()
 		{super();}
 	
-	public MiddleTraveller(String name, String currentCity) {
-		super(name, currentCity);
+	public MiddleTraveller(String name, int age, String currentCity, ArrayList<Integer> termsVector) {
+		super(name, age, currentCity, termsVector);
 	}
 	
 	
