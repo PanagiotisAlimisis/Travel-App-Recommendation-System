@@ -56,23 +56,42 @@ public class City {
 		this.nameCity = nameCity;
 		this.nameCountry = "";
 		this.isInDb = false;
-		try {
-			this.retrieveDataFromOpenWeatherMap();
-			this.retrieveDataFromWikipedia();
-			allCities.put(this.nameCity, this);
-			Connection connection=null;
+		new Thread(() -> {
 			try {
-				connection = OracleDbConnection.getInstance().getOracleConnection();
-			} catch (Exception e) {
+				retrieveDataFromOpenWeatherMap();
+				retrieveDataFromWikipedia();
+				allCities.put(this.nameCity, this);
+				Connection connection=null;
+				try {
+					connection = OracleDbConnection.getInstance().getOracleConnection();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				writeCitiesToDatabase(connection);
+				isInDb = true;
+			} catch (NoSuchCityException e) {
 				e.printStackTrace();
-			}
-			writeCitiesToDatabase(connection);
-			this.isInDb = true;
-		} catch (NoSuchCityException e) {
-			e.printStackTrace();
-		} catch (WikipediaArticleNotFoundException e) {
-			e.printStackTrace();
-		}
+			} catch (WikipediaArticleNotFoundException e) {
+				e.printStackTrace();
+			}   
+		}).start();
+		
+//		try {
+//			allCities.put(this.nameCity, this);
+//			Connection connection=null;
+//			try {
+//				connection = OracleDbConnection.getInstance().getOracleConnection();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			writeCitiesToDatabase(connection);
+//			isInDb = true;
+//
+//		} catch (NoSuchCityException e) {
+//			e.printStackTrace();
+//		} catch (WikipediaArticleNotFoundException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	public City(ArrayList<Integer> termsVector, ArrayList<Double> geodesicVector, String nameCity, String nameCountry) {

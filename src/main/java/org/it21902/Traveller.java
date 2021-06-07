@@ -1,16 +1,20 @@
 package org.it21902;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -54,9 +58,9 @@ public abstract class Traveller implements Comparable<Traveller>{
 	 */
 	private ArrayList<Double> geodesicVector;
 	private static ArrayList<Traveller> allTravellersList = new ArrayList<Traveller>();
-	private int age; //TODO: add age functionality when interactivity with the user is achieved
+	private int age; 
 	private long timestamp;
-	private String recommendedCity; //TODO: this is used in 4rth deliverable. it could be type of object City.
+	private String recommendedCity; 
 	private String currentCity;
 	
 	
@@ -80,11 +84,8 @@ public abstract class Traveller implements Comparable<Traveller>{
 		if (!allTravellersList.contains(this)) {
 				allTravellersList.add(this);
 		} else {
-			System.out.println("here");
-			
 			for (int i=0; i<allTravellersList.size(); ++i) {
 				if (allTravellersList.get(i).equals(this)) {
-					System.out.println("here");
 					allTravellersList.set(i, this);
 				}
 			}
@@ -103,20 +104,21 @@ public abstract class Traveller implements Comparable<Traveller>{
 	 * @return
 	 */
 	public City compareCities(Map<String, City> cities) {
-//		double max = Double.MAX_VALUE;
-		double max = Double.MIN_VALUE;
+		double max = Double.MAX_VALUE;
+//		double max = Double.MIN_VALUE;
 		City bestCity = null;
 		
 		for (Map.Entry<String, City> city: cities.entrySet()) {
 			double similarity = this.calculateSimilarity(city.getValue());
 //			System.out.println(city.getKey()+" - - "+similarity);
 		
-			if (similarity > max && !(city.getValue().getGeodesicVector().get(0) == this.getGeodesicVector().get(0) && city.getValue().getGeodesicVector().get(1) == this.getGeodesicVector().get(1))) {
+			if (similarity < max && !(city.getValue().getGeodesicVector().get(0) == this.getGeodesicVector().get(0) && city.getValue().getGeodesicVector().get(1) == this.getGeodesicVector().get(1))) {
 				max = similarity;
 				bestCity = city.getValue();
 			}
 		}
 		
+		this.recommendedCity = bestCity.getNameCity();
 		return bestCity;
 	}
 	
@@ -150,6 +152,25 @@ public abstract class Traveller implements Comparable<Traveller>{
 		}
 		
 		return bestCities;
+	}
+	
+	public String bestCityCollaborativeRecommendation() {
+		Map <String,Integer> cityToRank=allTravellersList.stream().collect(Collectors.toMap(i->i.getRecommendedCity(), i->innerDot(i.getTermsVector(), this.getTermsVector()), 
+				(rank1, rank2) -> rank1+rank2
+        ));
+		
+		Optional<RecommendedCity> recommendedCity=
+			allTravellersList.stream().map(i-> new RecommendedCity(i.getRecommendedCity(),innerDot(i.getTermsVector(),this.getTermsVector()))).max(Comparator.comparingInt(RecommendedCity::getRank));
+				
+		this.recommendedCity = recommendedCity.get().getCity();
+		return this.recommendedCity;
+	}
+	
+	private static int innerDot(ArrayList<Integer> currentTraveller, ArrayList<Integer> candidateTraveller) {
+		int sum=0;
+		for (int i=0; i<currentTraveller.size();i++)
+			sum+=currentTraveller.get(i)*candidateTraveller.get(i);
+		return sum;
 	}
 	
 	public static void printTravellersFromLastToFirst() {
@@ -189,6 +210,8 @@ public abstract class Traveller implements Comparable<Traveller>{
 		 try {
 			ArrayList<Traveller>  travellers = objectMapper.readValue(new File("Travellers.json"), objectMapper.getTypeFactory().constructCollectionType(List.class, Traveller.class));
 			setAllTravellersList(travellers);
+		 } catch (FileNotFoundException e) {
+			 e.printStackTrace();
 		 } catch (JsonParseException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e) {

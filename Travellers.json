@@ -1,9 +1,825 @@
 [ [ "org.it21902.YoungTraveller", {
-  "fullName" : "Panagiotis Alimisis",
-  "termsVector" : [ 0, 0, 1, 10, 1, 5, 2, 5, 9, 4 ],
+  "fullName" : "Traveller0",
+  "termsVector" : [ 2, 5, 10, 10, 4, 3, 3, 7, 7, 6 ],
+  "geodesicVector" : [ 48.2085, 16.3721 ],
+  "age" : 1,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Naples",
+  "currentCity" : "Vienna"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller1",
+  "termsVector" : [ 4, 6, 5, 7, 10, 1, 10, 8, 6, 10 ],
+  "geodesicVector" : [ 53.4809, -2.2374 ],
+  "age" : 52,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Craiova",
+  "currentCity" : "Manchester"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller2",
+  "termsVector" : [ 0, 6, 1, 3, 0, 2, 3, 4, 1, 6 ],
+  "geodesicVector" : [ 53.4809, -2.2374 ],
+  "age" : 12,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Bucharest",
+  "currentCity" : "Manchester"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller3",
+  "termsVector" : [ 10, 4, 5, 5, 0, 9, 5, 3, 4, 9 ],
+  "geodesicVector" : [ -33.8679, 151.2073 ],
+  "age" : 47,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Hamburg",
+  "currentCity" : "Sydney"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller4",
+  "termsVector" : [ 9, 4, 5, 4, 9, 0, 2, 1, 3, 5 ],
+  "geodesicVector" : [ 40.8333, 14.25 ],
+  "age" : 4,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Athens",
+  "currentCity" : "Naples"
+} ], [ "org.it21902.ElderTraveller", {
+  "fullName" : "Traveller5",
+  "termsVector" : [ 8, 4, 1, 6, 3, 0, 8, 10, 3, 0 ],
+  "geodesicVector" : [ 40.3777, 49.892 ],
+  "age" : 86,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Granada",
+  "currentCity" : "Baku"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller6",
+  "termsVector" : [ 7, 4, 3, 7, 4, 3, 3, 2, 10, 2 ],
+  "geodesicVector" : [ 41.3888, 2.159 ],
+  "age" : 18,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Kalamata",
+  "currentCity" : "Barcelona"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller7",
+  "termsVector" : [ 8, 9, 1, 5, 5, 1, 10, 8, 4, 10 ],
+  "geodesicVector" : [ -33.8679, 151.2073 ],
+  "age" : 33,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Kiel",
+  "currentCity" : "Sydney"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller8",
+  "termsVector" : [ 6, 7, 10, 5, 8, 5, 7, 10, 3, 10 ],
+  "geodesicVector" : [ 40.8333, 14.25 ],
+  "age" : 2,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Warsaw",
+  "currentCity" : "Naples"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller9",
+  "termsVector" : [ 6, 7, 9, 1, 0, 1, 6, 8, 0, 6 ],
+  "geodesicVector" : [ 48.2085, 16.3721 ],
+  "age" : 26,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Seville",
+  "currentCity" : "Vienna"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller10",
+  "termsVector" : [ 4, 8, 5, 3, 6, 9, 4, 4, 6, 1 ],
+  "geodesicVector" : [ 51.48, -3.18 ],
+  "age" : 14,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Warsaw",
+  "currentCity" : "Cardiff"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller11",
+  "termsVector" : [ 10, 6, 3, 2, 5, 0, 3, 10, 2, 7 ],
+  "geodesicVector" : [ 37.5089, 22.3794 ],
+  "age" : 30,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Amsterdam",
+  "currentCity" : "Tripoli"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller12",
+  "termsVector" : [ 1, 5, 9, 5, 8, 5, 0, 3, 10, 9 ],
+  "geodesicVector" : [ 37.0389, 22.1142 ],
+  "age" : 2,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Madrid",
+  "currentCity" : "Kalamata"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller13",
+  "termsVector" : [ 2, 9, 0, 4, 5, 2, 4, 6, 3, 9 ],
+  "geodesicVector" : [ 47.498, 19.0399 ],
+  "age" : 50,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Kiel",
+  "currentCity" : "Budapest"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller14",
+  "termsVector" : [ 5, 5, 9, 2, 9, 6, 3, 4, 5, 3 ],
+  "geodesicVector" : [ 37.3824, -5.9761 ],
+  "age" : 23,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Prague",
+  "currentCity" : "Seville"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller15",
+  "termsVector" : [ 10, 0, 1, 4, 9, 3, 3, 10, 6, 4 ],
+  "geodesicVector" : [ 51.48, -3.18 ],
+  "age" : 34,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Baku",
+  "currentCity" : "Cardiff"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller16",
+  "termsVector" : [ 7, 3, 8, 7, 9, 9, 9, 10, 3, 0 ],
+  "geodesicVector" : [ 43.2627, -2.9253 ],
+  "age" : 6,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Kiel",
+  "currentCity" : "Bilbao"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller17",
+  "termsVector" : [ 10, 5, 9, 10, 2, 9, 5, 9, 8, 6 ],
+  "geodesicVector" : [ 37.5089, 22.3794 ],
+  "age" : 5,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Rome",
+  "currentCity" : "Tripoli"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller18",
+  "termsVector" : [ 2, 1, 0, 1, 5, 3, 0, 5, 5, 9 ],
+  "geodesicVector" : [ 37.0389, 22.1142 ],
+  "age" : 11,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Oslo",
+  "currentCity" : "Kalamata"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller19",
+  "termsVector" : [ 4, 4, 3, 5, 9, 5, 4, 0, 3, 9 ],
+  "geodesicVector" : [ 38.3004, -76.5074 ],
+  "age" : 39,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Madrid",
+  "currentCity" : "California"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller20",
+  "termsVector" : [ 9, 8, 10, 4, 3, 5, 1, 3, 3, 7 ],
+  "geodesicVector" : [ 40.6403, 22.9439 ],
+  "age" : 22,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Corinth",
+  "currentCity" : "Thessaloniki"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller21",
+  "termsVector" : [ 1, 9, 5, 3, 6, 9, 10, 5, 8, 2 ],
+  "geodesicVector" : [ 43.9441, -90.8129 ],
+  "age" : 9,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Milan",
+  "currentCity" : "Sparta"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller22",
+  "termsVector" : [ 6, 7, 4, 10, 3, 9, 3, 4, 2, 5 ],
+  "geodesicVector" : [ 54.3213, 10.1349 ],
+  "age" : 11,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "California",
+  "currentCity" : "Kiel"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller23",
+  "termsVector" : [ 8, 0, 3, 8, 8, 10, 4, 9, 3, 7 ],
+  "geodesicVector" : [ 37.6333, 22.7333 ],
+  "age" : 34,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Vienna",
+  "currentCity" : "Argos"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller24",
+  "termsVector" : [ 0, 6, 5, 1, 8, 0, 1, 3, 9, 7 ],
+  "geodesicVector" : [ 40.6403, 22.9439 ],
+  "age" : 15,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "City",
+  "currentCity" : "Thessaloniki"
+} ], [ "org.it21902.ElderTraveller", {
+  "fullName" : "Traveller25",
+  "termsVector" : [ 2, 6, 1, 3, 3, 0, 9, 3, 9, 10 ],
+  "geodesicVector" : [ 60.1695, 24.9355 ],
+  "age" : 26,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Tokyo",
+  "currentCity" : "Helsinki"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller26",
+  "termsVector" : [ 10, 10, 5, 2, 6, 8, 8, 7, 0, 9 ],
+  "geodesicVector" : [ 35.6895, 139.6917 ],
+  "age" : 15,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Athens",
+  "currentCity" : "Tokyo"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller27",
+  "termsVector" : [ 5, 9, 6, 2, 9, 6, 9, 6, 8, 5 ],
+  "geodesicVector" : [ 55.6759, 12.5655 ],
+  "age" : 1,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Oslo",
+  "currentCity" : "Copenhagen"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller28",
+  "termsVector" : [ 0, 9, 10, 5, 7, 5, 5, 7, 1, 2 ],
+  "geodesicVector" : [ 55.7522, 37.6156 ],
+  "age" : 10,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Helsinki",
+  "currentCity" : "Moscow"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller29",
+  "termsVector" : [ 9, 7, 6, 2, 2, 0, 2, 2, 1, 7 ],
+  "geodesicVector" : [ 48.2085, 16.3721 ],
+  "age" : 3,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "California",
+  "currentCity" : "Vienna"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller30",
+  "termsVector" : [ 10, 3, 4, 4, 9, 2, 1, 9, 8, 2 ],
+  "geodesicVector" : [ 52.374, 4.8897 ],
+  "age" : 2,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Warsaw",
+  "currentCity" : "Amsterdam"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller31",
+  "termsVector" : [ 10, 8, 5, 10, 3, 0, 3, 6, 4, 1 ],
+  "geodesicVector" : [ 45.4643, 9.1895 ],
+  "age" : 37,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Birmingham",
+  "currentCity" : "Milan"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller32",
+  "termsVector" : [ 10, 3, 9, 6, 6, 7, 1, 6, 8, 5 ],
+  "geodesicVector" : [ 37.3824, -5.9761 ],
+  "age" : 23,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Tokyo",
+  "currentCity" : "Seville"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller33",
+  "termsVector" : [ 4, 1, 10, 0, 7, 7, 3, 4, 0, 4 ],
+  "geodesicVector" : [ 37.5089, 22.3794 ],
+  "age" : 13,
+  "timestamp" : 1622817915798,
+  "recommendedCity" : "Leipzig",
+  "currentCity" : "Tripoli"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller34",
+  "termsVector" : [ 8, 8, 3, 0, 4, 3, 3, 6, 7, 10 ],
+  "geodesicVector" : [ 48.1374, 11.5755 ],
+  "age" : 4,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Helsinki",
+  "currentCity" : "Munich"
+} ], [ "org.it21902.ElderTraveller", {
+  "fullName" : "Traveller35",
+  "termsVector" : [ 9, 6, 10, 5, 1, 7, 0, 1, 3, 3 ],
+  "geodesicVector" : [ 40.3777, 49.892 ],
+  "age" : 26,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Helsinki",
+  "currentCity" : "Baku"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller36",
+  "termsVector" : [ 6, 3, 6, 4, 10, 10, 2, 8, 0, 10 ],
+  "geodesicVector" : [ 53.4106, -2.9779 ],
+  "age" : 2,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Santorini",
+  "currentCity" : "Liverpool"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller37",
+  "termsVector" : [ 0, 2, 1, 5, 1, 4, 9, 8, 0, 3 ],
+  "geodesicVector" : [ -6.2146, 106.8451 ],
+  "age" : 33,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Naples",
+  "currentCity" : "Jakarta"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller38",
+  "termsVector" : [ 4, 9, 6, 1, 3, 3, 10, 0, 3, 3 ],
+  "geodesicVector" : [ 52.4814, -1.8998 ],
+  "age" : 23,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Vienna",
+  "currentCity" : "Birmingham"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller39",
+  "termsVector" : [ 2, 3, 9, 4, 5, 0, 0, 5, 6, 4 ],
+  "geodesicVector" : [ 50.088, 14.4208 ],
+  "age" : 47,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Craiova",
+  "currentCity" : "Prague"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller40",
+  "termsVector" : [ 4, 1, 7, 4, 6, 9, 10, 3, 1, 10 ],
+  "geodesicVector" : [ 50.088, 14.4208 ],
+  "age" : 2,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Manchester",
+  "currentCity" : "Prague"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller41",
+  "termsVector" : [ 7, 8, 9, 3, 3, 1, 3, 9, 4, 8 ],
+  "geodesicVector" : [ 50.088, 14.4208 ],
+  "age" : 45,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Sydney",
+  "currentCity" : "Prague"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller42",
+  "termsVector" : [ 10, 3, 7, 6, 0, 3, 1, 1, 7, 9 ],
+  "geodesicVector" : [ 37.9407, 22.9573 ],
+  "age" : 13,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Moscow",
+  "currentCity" : "Corinth"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller43",
+  "termsVector" : [ 5, 4, 0, 0, 4, 5, 7, 8, 8, 0 ],
+  "geodesicVector" : [ 37.9795, 23.7162 ],
+  "age" : 12,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Cologne",
+  "currentCity" : "Athens"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller44",
+  "termsVector" : [ 9, 2, 6, 4, 2, 2, 7, 8, 4, 10 ],
+  "geodesicVector" : [ 45.4643, 9.1895 ],
+  "age" : 4,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Cardiff",
+  "currentCity" : "Milan"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller45",
+  "termsVector" : [ 0, 2, 5, 9, 0, 6, 7, 3, 8, 0 ],
+  "geodesicVector" : [ -33.8679, 151.2073 ],
+  "age" : 37,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Moscow",
+  "currentCity" : "Sydney"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller46",
+  "termsVector" : [ 3, 2, 3, 3, 4, 9, 1, 2, 3, 0 ],
+  "geodesicVector" : [ 44.4323, 26.1063 ],
+  "age" : 1,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Helsinki",
+  "currentCity" : "Bucharest"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller47",
+  "termsVector" : [ 0, 2, 5, 4, 2, 2, 0, 1, 7, 6 ],
+  "geodesicVector" : [ 40.4165, -3.7026 ],
+  "age" : 0,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Prague",
+  "currentCity" : "Madrid"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller48",
+  "termsVector" : [ 3, 6, 9, 10, 9, 3, 5, 1, 1, 5 ],
+  "geodesicVector" : [ 47.498, 19.0399 ],
+  "age" : 18,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Cologne",
+  "currentCity" : "Budapest"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller49",
+  "termsVector" : [ 9, 5, 7, 3, 4, 6, 8, 4, 5, 0 ],
+  "geodesicVector" : [ 53.4809, -2.2374 ],
+  "age" : 33,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Amsterdam",
+  "currentCity" : "Manchester"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller50",
+  "termsVector" : [ 6, 8, 2, 6, 7, 3, 3, 2, 7, 6 ],
+  "geodesicVector" : [ 37.25, -3.25 ],
+  "age" : 21,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "California",
+  "currentCity" : "Granada"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller51",
+  "termsVector" : [ 7, 10, 5, 10, 9, 1, 10, 0, 0, 7 ],
+  "geodesicVector" : [ 35.6895, 139.6917 ],
+  "age" : 21,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Argos",
+  "currentCity" : "Tokyo"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller52",
+  "termsVector" : [ 4, 10, 5, 5, 6, 9, 8, 8, 4, 2 ],
+  "geodesicVector" : [ 53.55, 10.0 ],
+  "age" : 9,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Tripoli",
+  "currentCity" : "Hamburg"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller53",
+  "termsVector" : [ 2, 7, 9, 8, 0, 9, 10, 9, 8, 0 ],
+  "geodesicVector" : [ 38.3004, -76.5074 ],
+  "age" : 8,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Liverpool",
+  "currentCity" : "California"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller54",
+  "termsVector" : [ 9, 6, 10, 6, 8, 10, 9, 1, 8, 9 ],
+  "geodesicVector" : [ 52.2298, 21.0118 ],
+  "age" : 20,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Berlin",
+  "currentCity" : "Warsaw"
+} ], [ "org.it21902.ElderTraveller", {
+  "fullName" : "Traveller55",
+  "termsVector" : [ 7, 3, 4, 6, 10, 6, 5, 1, 10, 1 ],
+  "geodesicVector" : [ 53.4809, -2.2374 ],
+  "age" : 80,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Kalamata",
+  "currentCity" : "Manchester"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller56",
+  "termsVector" : [ 7, 4, 7, 8, 2, 1, 8, 8, 4, 10 ],
+  "geodesicVector" : [ 55.6759, 12.5655 ],
+  "age" : 2,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Leipzig",
+  "currentCity" : "Copenhagen"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller57",
+  "termsVector" : [ 10, 5, 0, 8, 9, 1, 1, 7, 1, 8 ],
+  "geodesicVector" : [ 50.9333, 6.95 ],
+  "age" : 29,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Barcelona",
+  "currentCity" : "Cologne"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller58",
+  "termsVector" : [ 9, 2, 6, 3, 2, 2, 7, 4, 8, 5 ],
+  "geodesicVector" : [ 37.9407, 22.9573 ],
+  "age" : 13,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Leipzig",
+  "currentCity" : "Corinth"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller59",
+  "termsVector" : [ 3, 5, 7, 2, 1, 0, 4, 6, 1, 9 ],
+  "geodesicVector" : [ 37.9407, 22.9573 ],
+  "age" : 23,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Naples",
+  "currentCity" : "Corinth"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller60",
+  "termsVector" : [ 4, 1, 4, 2, 3, 5, 5, 1, 8, 3 ],
+  "geodesicVector" : [ -6.2146, 106.8451 ],
+  "age" : 13,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "London",
+  "currentCity" : "Jakarta"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller61",
+  "termsVector" : [ 7, 2, 7, 9, 3, 5, 0, 4, 9, 1 ],
+  "geodesicVector" : [ 43.9441, -90.8129 ],
+  "age" : 26,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Hamburg",
+  "currentCity" : "Sparta"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller62",
+  "termsVector" : [ 5, 5, 4, 1, 1, 9, 4, 10, 9, 8 ],
+  "geodesicVector" : [ 52.4814, -1.8998 ],
+  "age" : 21,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Naples",
+  "currentCity" : "Birmingham"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller63",
+  "termsVector" : [ 8, 9, 3, 7, 5, 8, 0, 9, 9, 0 ],
+  "geodesicVector" : [ 52.2298, 21.0118 ],
+  "age" : 22,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Berlin",
+  "currentCity" : "Warsaw"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller64",
+  "termsVector" : [ 1, 1, 6, 5, 3, 8, 1, 2, 3, 8 ],
+  "geodesicVector" : [ 37.5089, 22.3794 ],
+  "age" : 1,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "London",
+  "currentCity" : "Tripoli"
+} ], [ "org.it21902.ElderTraveller", {
+  "fullName" : "Traveller65",
+  "termsVector" : [ 0, 1, 10, 6, 8, 5, 1, 7, 7, 9 ],
+  "geodesicVector" : [ 53.4809, -2.2374 ],
+  "age" : 44,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Porto",
+  "currentCity" : "Manchester"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller66",
+  "termsVector" : [ 6, 10, 10, 0, 7, 6, 2, 4, 1, 2 ],
+  "geodesicVector" : [ 37.6333, 22.7333 ],
+  "age" : 18,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Craiova",
+  "currentCity" : "Argos"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller67",
+  "termsVector" : [ 7, 1, 7, 5, 0, 9, 2, 9, 1, 2 ],
+  "geodesicVector" : [ 48.1374, 11.5755 ],
+  "age" : 41,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Prague",
+  "currentCity" : "Munich"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller68",
+  "termsVector" : [ 5, 9, 1, 10, 0, 7, 10, 5, 7, 3 ],
+  "geodesicVector" : [ 35.6895, 139.6917 ],
+  "age" : 7,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Helsinki",
+  "currentCity" : "Tokyo"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller69",
+  "termsVector" : [ 10, 8, 3, 8, 0, 8, 7, 5, 10, 0 ],
+  "geodesicVector" : [ -35.2813, 149.1292 ],
+  "age" : 45,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Sydney",
+  "currentCity" : "City"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller70",
+  "termsVector" : [ 3, 7, 2, 9, 8, 8, 0, 5, 2, 5 ],
+  "geodesicVector" : [ 37.9407, 22.9573 ],
+  "age" : 2,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Warsaw",
+  "currentCity" : "Corinth"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller71",
+  "termsVector" : [ 8, 4, 8, 1, 10, 3, 8, 2, 0, 9 ],
+  "geodesicVector" : [ 35.6895, 139.6917 ],
+  "age" : 26,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Tripoli",
+  "currentCity" : "Tokyo"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller72",
+  "termsVector" : [ 1, 1, 10, 5, 1, 3, 7, 2, 3, 4 ],
+  "geodesicVector" : [ 48.1374, 11.5755 ],
+  "age" : 13,
+  "timestamp" : 1622817915799,
+  "recommendedCity" : "Athens",
+  "currentCity" : "Munich"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller73",
+  "termsVector" : [ 4, 3, 4, 1, 7, 1, 1, 7, 8, 2 ],
+  "geodesicVector" : [ -6.2146, 106.8451 ],
+  "age" : 22,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Bucharest",
+  "currentCity" : "Jakarta"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller74",
+  "termsVector" : [ 0, 0, 3, 10, 2, 9, 6, 1, 5, 6 ],
+  "geodesicVector" : [ 37.3824, -5.9761 ],
+  "age" : 5,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Bucharest",
+  "currentCity" : "Seville"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller75",
+  "termsVector" : [ 5, 10, 7, 2, 2, 8, 5, 6, 5, 4 ],
+  "geodesicVector" : [ 40.4165, -3.7026 ],
+  "age" : 54,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Budapest",
+  "currentCity" : "Madrid"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller76",
+  "termsVector" : [ 0, 0, 5, 7, 6, 0, 10, 9, 4, 4 ],
   "geodesicVector" : [ 37.9795, 23.7162 ],
   "age" : 20,
-  "timestamp" : 1622101207080,
-  "recommendedCity" : "",
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Hamburg",
   "currentCity" : "Athens"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller77",
+  "termsVector" : [ 3, 8, 8, 10, 4, 3, 10, 9, 2, 0 ],
+  "geodesicVector" : [ -35.2813, 149.1292 ],
+  "age" : 6,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Madrid",
+  "currentCity" : "City"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller78",
+  "termsVector" : [ 7, 7, 10, 6, 2, 1, 2, 7, 9, 1 ],
+  "geodesicVector" : [ -6.2146, 106.8451 ],
+  "age" : 16,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "London",
+  "currentCity" : "Jakarta"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller79",
+  "termsVector" : [ 6, 5, 1, 6, 10, 8, 0, 5, 6, 5 ],
+  "geodesicVector" : [ -6.2146, 106.8451 ],
+  "age" : 23,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Santorini",
+  "currentCity" : "Jakarta"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller80",
+  "termsVector" : [ 7, 2, 1, 4, 7, 4, 2, 10, 5, 5 ],
+  "geodesicVector" : [ 51.342, 12.375 ],
+  "age" : 14,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Cardiff",
+  "currentCity" : "Leipzig"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller81",
+  "termsVector" : [ 6, 3, 0, 2, 1, 8, 6, 6, 9, 0 ],
+  "geodesicVector" : [ 45.4643, 9.1895 ],
+  "age" : 45,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Jakarta",
+  "currentCity" : "Milan"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller82",
+  "termsVector" : [ 7, 1, 4, 6, 0, 0, 7, 10, 4, 9 ],
+  "geodesicVector" : [ 55.6759, 12.5655 ],
+  "age" : 4,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Birmingham",
+  "currentCity" : "Copenhagen"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller83",
+  "termsVector" : [ 3, 8, 0, 2, 1, 6, 1, 3, 5, 5 ],
+  "geodesicVector" : [ 47.498, 19.0399 ],
+  "age" : 23,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Corinth",
+  "currentCity" : "Budapest"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller84",
+  "termsVector" : [ 8, 1, 0, 0, 10, 8, 3, 1, 5, 9 ],
+  "geodesicVector" : [ 41.3888, 2.159 ],
+  "age" : 8,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Thessaloniki",
+  "currentCity" : "Barcelona"
+} ], [ "org.it21902.ElderTraveller", {
+  "fullName" : "Traveller85",
+  "termsVector" : [ 0, 7, 2, 1, 5, 8, 10, 6, 9, 9 ],
+  "geodesicVector" : [ 52.374, 4.8897 ],
+  "age" : 75,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Sparta",
+  "currentCity" : "Amsterdam"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller86",
+  "termsVector" : [ 7, 7, 8, 5, 8, 0, 1, 0, 5, 0 ],
+  "geodesicVector" : [ 42.2328, -8.7226 ],
+  "age" : 3,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Manchester",
+  "currentCity" : "Vigo"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller87",
+  "termsVector" : [ 7, 10, 4, 8, 5, 8, 0, 6, 0, 10 ],
+  "geodesicVector" : [ 37.9407, 22.9573 ],
+  "age" : 9,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Bilbao",
+  "currentCity" : "Corinth"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller88",
+  "termsVector" : [ 8, 5, 5, 9, 10, 6, 10, 5, 5, 8 ],
+  "geodesicVector" : [ -35.2813, 149.1292 ],
+  "age" : 17,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Porto",
+  "currentCity" : "City"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller89",
+  "termsVector" : [ 1, 0, 4, 2, 8, 7, 2, 9, 5, 5 ],
+  "geodesicVector" : [ 43.2627, -2.9253 ],
+  "age" : 42,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Tripoli",
+  "currentCity" : "Bilbao"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller90",
+  "termsVector" : [ 1, 0, 3, 6, 10, 5, 10, 4, 7, 7 ],
+  "geodesicVector" : [ 37.0389, 22.1142 ],
+  "age" : 8,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Vienna",
+  "currentCity" : "Kalamata"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller91",
+  "termsVector" : [ 9, 7, 5, 10, 3, 0, 8, 2, 7, 7 ],
+  "geodesicVector" : [ 38.3004, -76.5074 ],
+  "age" : 7,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Birmingham",
+  "currentCity" : "California"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller92",
+  "termsVector" : [ 7, 4, 10, 1, 3, 0, 4, 5, 7, 5 ],
+  "geodesicVector" : [ 37.3824, -5.9761 ],
+  "age" : 7,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Berlin",
+  "currentCity" : "Seville"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller93",
+  "termsVector" : [ 6, 6, 6, 5, 7, 8, 8, 8, 2, 4 ],
+  "geodesicVector" : [ 52.5244, 13.4105 ],
+  "age" : 40,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Barcelona",
+  "currentCity" : "Berlin"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller94",
+  "termsVector" : [ 5, 2, 5, 2, 7, 6, 2, 1, 0, 5 ],
+  "geodesicVector" : [ 54.3213, 10.1349 ],
+  "age" : 1,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Kalamata",
+  "currentCity" : "Kiel"
+} ], [ "org.it21902.ElderTraveller", {
+  "fullName" : "Traveller95",
+  "termsVector" : [ 1, 5, 6, 10, 3, 4, 9, 1, 1, 10 ],
+  "geodesicVector" : [ 37.9795, 23.7162 ],
+  "age" : 21,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Budapest",
+  "currentCity" : "Athens"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller96",
+  "termsVector" : [ 0, 2, 7, 3, 0, 10, 4, 4, 1, 5 ],
+  "geodesicVector" : [ 59.9127, 10.7461 ],
+  "age" : 18,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "City",
+  "currentCity" : "Oslo"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller97",
+  "termsVector" : [ 7, 8, 2, 7, 5, 8, 6, 8, 0, 9 ],
+  "geodesicVector" : [ 53.4809, -2.2374 ],
+  "age" : 31,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Santorini",
+  "currentCity" : "Manchester"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller98",
+  "termsVector" : [ 5, 10, 9, 9, 6, 2, 4, 1, 9, 3 ],
+  "geodesicVector" : [ 40.4165, -3.7026 ],
+  "age" : 23,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Kiel",
+  "currentCity" : "Madrid"
+} ], [ "org.it21902.MiddleTraveller", {
+  "fullName" : "Traveller99",
+  "termsVector" : [ 5, 5, 10, 3, 3, 7, 5, 1, 8, 9 ],
+  "geodesicVector" : [ 37.3824, -5.9761 ],
+  "age" : 31,
+  "timestamp" : 1622817915800,
+  "recommendedCity" : "Copenhagen",
+  "currentCity" : "Seville"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "Traveller_Candidate",
+  "termsVector" : [ 1, 7, 1, 3, 9, 1, 5, 7, 3, 3 ],
+  "geodesicVector" : [ 41.8947, 12.4839 ],
+  "age" : 22,
+  "timestamp" : 1622818091707,
+  "recommendedCity" : "",
+  "currentCity" : "Rome"
+} ], [ "org.it21902.YoungTraveller", {
+  "fullName" : "traveller:)",
+  "termsVector" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+  "geodesicVector" : [ 37.5089, 22.3794 ],
+  "age" : 12,
+  "timestamp" : 1622819559035,
+  "recommendedCity" : "Athens",
+  "currentCity" : "Tripoli"
+} ], [ "org.it21902.ElderTraveller", {
+  "fullName" : "Traveller0000011111",
+  "termsVector" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+  "geodesicVector" : [ 40.8333, 14.25 ],
+  "age" : 99,
+  "timestamp" : 1622819763832,
+  "recommendedCity" : "Naples",
+  "currentCity" : "Naples"
 } ] ]

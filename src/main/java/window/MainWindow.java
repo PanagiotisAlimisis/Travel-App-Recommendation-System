@@ -63,11 +63,15 @@ import db.connection.OracleDbConnection;
 
 public class MainWindow {
 
-	private static JLabel recommendedCity = new JLabel();
+//	private static JLabel recommendedCity = new JLabel();
+	private static String recommendedCity;
 	private static JSplitPane splitPane ;
 	private static ArrayList<Integer> termsVector = new ArrayList<>(Collections.nCopies(10, 0));
     
-	
+	private static JTextField[] userInformation;	
+	private static final JFrame frame = new JFrame("Travel Recomendation App");
+	private static ResultsPanel resultsPanel; 	
+
 	public static void main(String[] args) {
 
 		Connection connection=null;
@@ -83,7 +87,7 @@ public class MainWindow {
         Runnable r = new Runnable() {
 
             public void run() {
-                final JFrame frame = new JFrame("Travel Recomendation App");
+                
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
                 final JPanel gui = new JPanel(new BorderLayout(5,5));
@@ -166,7 +170,7 @@ public class MainWindow {
                 JPanel p = new JPanel();
 
                 String[] form = {"Full Name:", "Age:", "Current City:"};
-                JTextField[] userInformation = new JTextField[3];
+                userInformation = new JTextField[3];
                 for (int i=0; i<form.length; ++i) {
                 	JPanel insidePanel = new JPanel();
                 	JLabel lb = new JLabel(form[i]);
@@ -177,28 +181,8 @@ public class MainWindow {
                 	p.add(insidePanel);
                 }
                 
-                JPanel resultsPanel = new JPanel(new GridBagLayout());
+                resultsPanel = new ResultsPanel("", new GridBagLayout());
 
-                //TODO: display result in a beautiful way
-                
-                //                BufferedImage bi = new BufferedImage(500, 500,BufferedImage.TYPE_INT_ARGB);
-//                Graphics2D g = bi.createGraphics();
-//                GradientPaint gp = new GradientPaint(20f,20f,Color.red, 180f,180f,Color.yellow);
-//                g.setPaint(gp);
-//                g.fillRect(0,0,200,200);
-//                
-//                Font font = new Font("Arial", Font.BOLD, 22);
-//                g.setFont(font);
-//                g.setColor(Color.GREEN);
-//                g.drawString("Hello", 100, 20);
-//                
-//                ImageIcon ii = new ImageIcon(bi);
-//                JLabel imageLabel = new JLabel(ii);
-//                resultsPanel.add( imageLabel, null );
-//                
-                resultsPanel.add(recommendedCity);
-                
-                
                 splitPane = new JSplitPane(
                     JSplitPane.VERTICAL_SPLIT,
                     p,
@@ -206,74 +190,26 @@ public class MainWindow {
 
                 gui.add( splitPane, BorderLayout.CENTER );
                 
-                JButton b = new JButton("Generate results");
-                b.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent event) {
-						String fullName="";
-						Integer age=-1;
-						String currentCity="";
-						for (int i=0; i<userInformation.length; ++i) {
-							if (userInformation[i].getText().trim().equals("")) {
-								JOptionPane.showMessageDialog(frame, "Please enter all requested values.", null, JOptionPane.ERROR_MESSAGE);
-								return;
-							}
-							if (userInformation[i].getName().equals("Age:")) {
-								try {
-									age = Integer.parseInt(userInformation[i].getText());
-									if (age <= 0 || age > 110) {
-										JOptionPane.showMessageDialog(frame, "Enter a valid age.", null, JOptionPane.ERROR_MESSAGE);
-										return;
-									}
-								} catch (NumberFormatException e) {
-									JOptionPane.showMessageDialog(frame, "Enter a valid age.", null, JOptionPane.ERROR_MESSAGE);
-									return;
-								}
-							}
-							if (userInformation[i].getName().equals("Full Name:")) {
-								fullName = userInformation[i].getText();
-							}
-							if (userInformation[i].getName().equals("Current City:")) {
-								currentCity = userInformation[i].getText();
-							}
-						}
-						
-						Traveller t = null;
-						try {
-							if (age < 26) {
-								t = new YoungTraveller(fullName, age, currentCity, termsVector);
-							} else if (age < 51) {
-								t = new MiddleTraveller(fullName, age, currentCity, termsVector);
-							} else {
-								t = new ElderTraveller(fullName, age, currentCity, termsVector);
-							}
-						} catch (NullPointerException e) {
-							JOptionPane.showMessageDialog(frame, "Enter another city", null, JOptionPane.ERROR_MESSAGE);
-						}
-						
-						recommendedCity = new JLabel(t.compareCities(City.getAllCities()).getNameCity());
-						
-						resultsPanel.removeAll();
-						
-						resultsPanel.add(recommendedCity);
-						resultsPanel.repaint();
-						resultsPanel.revalidate();
-					}
-                });
+                JButton btnContent = new JButton("Content Based Filtering");
+                btnContent.addActionListener(createActionListener("Content Based Filtering"));
                 
-                p.add(b);
-                b = new JButton("Save my data");
-                b.addActionListener(new ActionListener() {
+                
+                p.add(btnContent);
+                JButton btnCollaborative = new JButton("Collaborative Filtering");
+                btnCollaborative.addActionListener(createActionListener("Collaborative Filtering"));
+                p.add(btnCollaborative);
+                
+                JButton btnSave = new JButton("Save");
+                btnSave.addActionListener(new ActionListener() {
                 	@Override
 					public void actionPerformed(ActionEvent event) {
                 		Traveller.writeTravellersToJson();
 					}
                 });
-                p.add(b);
+                p.add(btnSave);
 
-                b = new JButton("Clear");
-                b.addActionListener(new ActionListener() {
+                JButton btnClear = new JButton("Clear");
+                btnClear.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent event) {
 						for (JSlider sl: sliders) {
@@ -282,13 +218,11 @@ public class MainWindow {
 						for (int i=0; i<userInformation.length; ++i) {
 							userInformation[i].setText("");
 						}
-						resultsPanel.removeAll();
-						resultsPanel.repaint();
-						resultsPanel.revalidate();
+						resultsPanel.setText("");
 					}
 					
                 });
-                p.add(b);
+                p.add(btnClear);
                 
                 frame.setContentPane(gui);
 
@@ -306,4 +240,63 @@ public class MainWindow {
         };
         SwingUtilities.invokeLater(r);
     }
+	
+	private static ActionListener createActionListener(String button) {
+		return new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				String fullName="";
+				Integer age=-1;
+				String currentCity="";
+				for (int i=0; i<userInformation.length; ++i) {
+					if (userInformation[i].getText().trim().equals("")) {
+						JOptionPane.showMessageDialog(frame, "Please enter all requested values.", null, JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					if (userInformation[i].getName().equals("Age:")) {
+						try {
+							age = Integer.parseInt(userInformation[i].getText());
+							if (age <= 0 || age > 110) {
+								JOptionPane.showMessageDialog(frame, "Enter a valid age.", null, JOptionPane.ERROR_MESSAGE);
+								return;
+							}
+						} catch (NumberFormatException e) {
+							JOptionPane.showMessageDialog(frame, "Enter a valid age.", null, JOptionPane.ERROR_MESSAGE);
+							return;
+						}
+					}
+					if (userInformation[i].getName().equals("Full Name:")) {
+						fullName = userInformation[i].getText();
+					}
+					if (userInformation[i].getName().equals("Current City:")) {
+						currentCity = userInformation[i].getText();
+					}
+				}
+				
+				Traveller t = null;
+				try {
+					if (age < 26) {
+						t = new YoungTraveller(fullName, age, currentCity, termsVector);
+					} else if (age < 51) {
+						t = new MiddleTraveller(fullName, age, currentCity, termsVector);
+					} else {
+						t = new ElderTraveller(fullName, age, currentCity, termsVector);
+					}
+				} catch (NullPointerException e) {
+					JOptionPane.showMessageDialog(frame, "Enter another city", null, JOptionPane.ERROR_MESSAGE);
+				}
+				try {
+					if (button.equals("Content Based Filtering"))
+						recommendedCity = t.compareCities(City.getAllCities()).getNameCity();
+					else
+						recommendedCity = t.bestCityCollaborativeRecommendation();
+				} catch (NullPointerException e) {
+					System.err.println("NUll");
+				}
+				
+				resultsPanel.setText(recommendedCity);
+			}
+		};
+	}
 }
