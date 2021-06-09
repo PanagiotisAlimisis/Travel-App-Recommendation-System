@@ -60,7 +60,7 @@ public class MainWindow {
 		
 		new Thread(() -> {
 			Traveller.readTravellersFromJson();		
-		}).start();;
+		}).start();
 		
         Runnable r = new Runnable() {
 
@@ -201,6 +201,7 @@ public class MainWindow {
 							userInformation[i].setText("");
 						}
 						resultsPanel.setText("");
+						resultsPanel.setImage("");
 					}
 					
                 });
@@ -269,6 +270,7 @@ public class MainWindow {
 					JOptionPane.showMessageDialog(frame, "Enter another city", null, JOptionPane.ERROR_MESSAGE);
 				}
 				try {
+
 					if (button.equals("Content Based Filtering"))
 						recommendedCity = t.compareCities(City.getAllCities()).getNameCity();
 					else
@@ -278,6 +280,7 @@ public class MainWindow {
 				}
 				
 				resultsPanel.setText(recommendedCity);
+				resultsPanel.setImage();
 			}
 		};
 	}

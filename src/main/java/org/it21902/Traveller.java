@@ -82,7 +82,7 @@ public abstract class Traveller implements Comparable<Traveller>{
 		this.age = age;
 
 		if (!allTravellersList.contains(this)) {
-				allTravellersList.add(this);
+			allTravellersList.add(this);
 		} else {
 			for (int i=0; i<allTravellersList.size(); ++i) {
 				if (allTravellersList.get(i).equals(this)) {
@@ -156,12 +156,11 @@ public abstract class Traveller implements Comparable<Traveller>{
 	
 	public String bestCityCollaborativeRecommendation() {
 		Map <String,Integer> cityToRank=allTravellersList.stream().collect(Collectors.toMap(i->i.getRecommendedCity(), i->innerDot(i.getTermsVector(), this.getTermsVector()), 
-				(rank1, rank2) -> rank1+rank2
-        ));
+				(innerdot1, innerdot2) -> innerdot1+innerdot2));
 		
 		Optional<RecommendedCity> recommendedCity=
 			allTravellersList.stream().map(i-> new RecommendedCity(i.getRecommendedCity(),innerDot(i.getTermsVector(),this.getTermsVector()))).max(Comparator.comparingInt(RecommendedCity::getRank));
-				
+		
 		this.recommendedCity = recommendedCity.get().getCity();
 		return this.recommendedCity;
 	}
