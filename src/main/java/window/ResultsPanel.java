@@ -29,11 +29,9 @@ public class ResultsPanel extends JPanel{
 
         Random rnd = new Random();
        
-		
-		GradientPaint blackToGray = new GradientPaint(0, this.getWidth()/2, new Color(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)), this.getWidth()/2, this.getWidth(), new Color(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
-        g2.setPaint(blackToGray);
+		GradientPaint gradientClr = new GradientPaint(0, this.getWidth()/2, new Color(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)), this.getWidth()/2, this.getWidth(), new Color(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
+        g2.setPaint(gradientClr);
         g2.fill(new Rectangle2D.Double(0, 0, this.getWidth(), this.getHeight()));
-
         
         int fontSize = 60;
         Font f = new Font("Comic Sans MS", Font.BOLD, fontSize);
@@ -45,14 +43,12 @@ public class ResultsPanel extends JPanel{
         }
        
         g2.setColor(new Color(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
-
-        g2.drawString(text, this.getWidth()/2-60,this.getHeight()/2);
+        g2.drawString(text, this.getWidth()/2-100,this.getHeight()/2);
     }
 
 	public String getText() {
 		return text;
 	}
-
 	public void setText(String text) {
 		this.text = text;
 		repaint();

@@ -16,8 +16,7 @@ public class OracleDbConnection {
             oracleDbConnection = DriverManager.getConnection(url, username, password);
             System.out.println("Connection to Oracle Database has been established.");
         } catch (SQLException sqlException) {
-        	System.err.println("Fill out password in OracleDbConnection.java");
-//            sqlException.printStackTrace();
+        	sqlException.printStackTrace();
         }
     }
 

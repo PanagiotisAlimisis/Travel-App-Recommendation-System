@@ -48,6 +48,9 @@ public class City {
 	private static Map<String, City> allCities = new HashMap<>();
 	private boolean isInDb;
 	
+	private static Connection connection=OracleDbConnection.getInstance().getOracleConnection();
+
+	
 	public City(String nameCity) {
 		if (allCities.containsKey(nameCity)) return;
 		
@@ -56,42 +59,19 @@ public class City {
 		this.nameCity = nameCity;
 		this.nameCountry = "";
 		this.isInDb = false;
-		new Thread(() -> {
-			try {
-				retrieveDataFromOpenWeatherMap();
-				retrieveDataFromWikipedia();
-				allCities.put(this.nameCity, this);
-				Connection connection=null;
-				try {
-					connection = OracleDbConnection.getInstance().getOracleConnection();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				writeCitiesToDatabase(connection);
-				isInDb = true;
-			} catch (NoSuchCityException e) {
-				e.printStackTrace();
-			} catch (WikipediaArticleNotFoundException e) {
-				e.printStackTrace();
-			}   
-		}).start();
 		
-//		try {
-//			allCities.put(this.nameCity, this);
-//			Connection connection=null;
-//			try {
-//				connection = OracleDbConnection.getInstance().getOracleConnection();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			writeCitiesToDatabase(connection);
-//			isInDb = true;
-//
-//		} catch (NoSuchCityException e) {
-//			e.printStackTrace();
-//		} catch (WikipediaArticleNotFoundException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			retrieveDataFromOpenWeatherMap();
+			retrieveDataFromWikipedia();
+			allCities.put(this.nameCity, this);
+
+			writeCitiesToDatabase(connection);
+			isInDb = true;
+		} catch (NoSuchCityException e) {
+			e.printStackTrace();
+		} catch (WikipediaArticleNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public City(ArrayList<Integer> termsVector, ArrayList<Double> geodesicVector, String nameCity, String nameCountry) {
@@ -104,12 +84,6 @@ public class City {
 		this.isInDb = true;
 	}
 
-//	public static void addNewCity(String cityName, String countryName) {
-		
-//		new City(cityName, countryName);
-//	}
-	
-	/*Getters & Setters*/
 	public ArrayList<Integer> getTermsVector() {
 		return termsVector;
 	}
@@ -221,7 +195,6 @@ public class City {
 				termsVect.add(resultSet.getInt("statue"));
 				termsVect.add(resultSet.getInt("square"));
 				
-//				System.out.println(cityName + " " + countryName + " " + geoVect + " " + termsVect);
 				new City(termsVect, geoVect, cityName, countryName);
 			}
 			
@@ -285,7 +258,6 @@ public class City {
 	 private void setTermsFromWikipedia(String text) {
 		 String s[] = text.split(" ");
 
-		 /*Initialize 10 cells with 0.*/
 		 ArrayList<Integer> terms = new ArrayList<Integer>();
 		 for (int i=0; i<10; i++) {
 			 terms.add(0);

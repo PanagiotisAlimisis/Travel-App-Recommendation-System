@@ -1,36 +1,17 @@
 package window;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.HierarchyEvent;
-import java.awt.event.HierarchyListener;
-import java.awt.image.BufferedImage;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -38,20 +19,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JSplitPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
-import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.SplitPaneUI;
-import javax.swing.plaf.basic.BasicSplitPaneDivider;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
-import javax.swing.table.DefaultTableModel;
 
 import org.it21902.City;
 import org.it21902.ElderTraveller;
@@ -63,7 +37,6 @@ import db.connection.OracleDbConnection;
 
 public class MainWindow {
 
-//	private static JLabel recommendedCity = new JLabel();
 	private static String recommendedCity;
 	private static JSplitPane splitPane ;
 	private static ArrayList<Integer> termsVector = new ArrayList<>(Collections.nCopies(10, 0));
@@ -71,18 +44,23 @@ public class MainWindow {
 	private static JTextField[] userInformation;	
 	private static final JFrame frame = new JFrame("Travel Recomendation App");
 	private static ResultsPanel resultsPanel; 	
-
+	private static Connection connection=null;
+	
 	public static void main(String[] args) {
 
-		Connection connection=null;
 		try {
 			connection = OracleDbConnection.getInstance().getOracleConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		City.readCitiesFromDb(connection);
-		Traveller.readTravellersFromJson();
+		new Thread(() -> {
+			City.readCitiesFromDb(connection);		
+		}).start();
+		
+		new Thread(() -> {
+			Traveller.readTravellersFromJson();		
+		}).start();;
 		
         Runnable r = new Runnable() {
 
@@ -93,6 +71,10 @@ public class MainWindow {
                 final JPanel gui = new JPanel(new BorderLayout(5,5));
                 gui.setBorder( new TitledBorder("") );
 
+                JPanel welcome = new WelcomePanel();
+                gui.add(welcome, BorderLayout.NORTH);
+                
+                
 				JToolBar tb = new JToolBar();
                 JPanel themeUI = new JPanel(new FlowLayout(FlowLayout.RIGHT, 3,3));
                 themeUI.setBorder(new TitledBorder("Select theme UI") );
@@ -101,15 +83,14 @@ public class MainWindow {
                 String[] themes = new String[lookAndFeels.length];
                 for (int ii=0; ii<lookAndFeels.length; ii++) {
                     themes[ii] = lookAndFeels[ii].getName();
-                    System.out.println(themes[ii]);
+  
                 }
-                final JComboBox plafChooser = new JComboBox(themes);
-                themeUI.add(plafChooser);
+                final JComboBox lfChooser = new JComboBox(themes);
+                themeUI.add(lfChooser);
 
-
-                plafChooser.addActionListener( new ActionListener(){
+                lfChooser.addActionListener( new ActionListener(){
                     public void actionPerformed(ActionEvent ae) {
-                        int index = plafChooser.getSelectedIndex();
+                        int index = lfChooser.getSelectedIndex();
                         try {
                             UIManager.setLookAndFeel(lookAndFeels[index].getClassName());
                             SwingUtilities.updateComponentTreeUI(frame);
@@ -120,13 +101,14 @@ public class MainWindow {
                     }
                 } );
 
-                gui.add(themeUI, BorderLayout.NORTH);
+                gui.add(themeUI, BorderLayout.SOUTH);
 
+                
                 JPanel dynamicLabels = new JPanel(new BorderLayout(4,4));
                 dynamicLabels.setBorder(new TitledBorder("") );
                 gui.add(dynamicLabels, BorderLayout.WEST);
 
-                final JPanel labels = new JPanel(new GridLayout(0,1,3,3));
+                final JPanel labels = new JPanel(new GridLayout(0,1,4,4));
                 labels.setBorder(new TitledBorder("Select your terms") );
 
                 JLabel labelTerms;
@@ -270,7 +252,7 @@ public class MainWindow {
 						fullName = userInformation[i].getText();
 					}
 					if (userInformation[i].getName().equals("Current City:")) {
-						currentCity = userInformation[i].getText();
+						currentCity = userInformation[i].getText().substring(0, 1).toUpperCase() + userInformation[i].getText().substring(1).toLowerCase();
 					}
 				}
 				
