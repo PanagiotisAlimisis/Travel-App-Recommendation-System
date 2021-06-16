@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class OracleDbConnection {
     private static OracleDbConnection dbConnection = null;
     private Connection oracleDbConnection;
-    private String username="IT21902";
-    private String password="Alim!@()0"; 
+    private String username="*******";
+    private String password="*******"; 
     
     private OracleDbConnection() {
         try {
