@@ -1,5 +1,14 @@
 # Travel App
 
+This is an application which helps travellers to select their dream place to visit. There are two techniques to decide on which city each traveller should go. Content based filtering and collaborative filtering. All cities are saved into an Oracle database, while travellers are kept into a Json file.
+
+APIs used: 
+```
+OpenWeatherMap
+MediaWiki
+Teleport
+```
+
 Instructions to run this project:
 
 Download project
