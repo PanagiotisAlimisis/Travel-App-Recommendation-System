@@ -23,7 +23,7 @@ import weather.OpenWeatherMap;
 import wikipedia.MediaWiki;
 
 public class City {
-	private static final String APPID = "8268b79c6118c5f5c576506e09e1318d";
+	private static final String APPID = "********************************";
 
 	/**
 	 * 0: museum
