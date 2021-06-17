@@ -53,7 +53,7 @@
 	      <configuration>
 	        <archive>
 	          <manifest>
-	            <mainClass>window.MainWindow</mainClass>
+	            <mainClass>window.MainWindow.java</mainClass>
 	          </manifest>
 	        </archive>
 	        <descriptorRefs>
